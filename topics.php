@@ -57,27 +57,38 @@ include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
     <br>
     <h3>Select a topics to begin learning</h3>
     <br>
-    <?php
-        $conn = OpenCon();
-        // echo "Connected Successfully";
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-          }
-          
-          $sql = "SELECT topic_id, topic_name FROM topic";
-          $result = $conn->query($sql);
-          
-          if ($result->num_rows > 0) {
-            // output data of each row
-            while($row = $result->fetch_assoc()) {
-              echo "id: " . $row["topic_id"]. " - Name: " . $row["topic_name"] . "<br>";
+    <form action="get">
+    <div class="list-group">
+        <?php
+            $conn = OpenCon();
+            // echo "Connected Successfully";
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
             }
-          } else {
-            echo "0 results";
-          }
-        CloseCon($conn);
+            
+            $sql = "SELECT topic_id, topic_name FROM topic";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                // echo "id: " . $row["topic_id"]. " - Name: " . $row["topic_name"] . "<br>";
+                echo '<button type="submit" class="list-group-item list-group-item-action">'.$row["topic_name"].'</button>';
+                }
+            } else {
+                echo "0 results";
+            }
+            CloseCon($conn);
+        
+        ?>
+
+        <!-- <button type="submit" class="list-group-item list-group-item-action">Dapibus ac facilisis in</button>
+        <button type="button" class="list-group-item list-group-item-action">Morbi leo risus</button>
+        <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
+        <button type="button" class="list-group-item list-group-item-action" disabled>Vestibulum at eros</button> -->
+    </div>
+    </form>
     
-    ?>
     
     </div>
 
