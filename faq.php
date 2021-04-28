@@ -1,3 +1,8 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
+?>
+
+
 <html>
 
 <head>
@@ -50,11 +55,40 @@
 
     <div class="container">
     <br>
-    <h3>Good morning and welcome to FOP!</h3>
+    <h3>Frequently asked questions</h3>
     <br>
-    <a class="btn btn-success btn-lg btn-block" href="topics.php">Begin Learning</a>
-    <a class="btn btn-primary btn-lg btn-block" href="faq.php">FAQ</a>
-    <a class="btn btn-secondary btn-lg btn-block" href="test.php">Take a test</a>
+
+    <?php
+        $conn = OpenCon();
+        // echo "Connected Successfully";
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        
+        $sql = "SELECT faquestion, fanswer FROM faq";
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+
+            $i = 0;
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+                echo "<div>
+                    <p><b>".++$i.". ".$row['faquestion']."</b></p>
+                    <p>".$row['fanswer']."</p>
+                    <br>
+                </div>";
+            }
+        } else {
+            echo "0 results";
+        }
+        CloseCon($conn);
+    
+    ?>
+
+
+    
+
     
     </div>
 
