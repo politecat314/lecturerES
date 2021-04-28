@@ -52,7 +52,7 @@
     <br>
     <h3>Good morning and welcome to FOP!</h3>
     <br>
-    <a class="btn btn-success btn-lg btn-block" href="./topics">Begin Learning</a>
+    <a class="btn btn-success btn-lg btn-block" href="topics.php">Begin Learning</a>
     <a class="btn btn-primary btn-lg btn-block" href="topics.php">Ask a question</a>
     <a class="btn btn-secondary btn-lg btn-block" href="topics.php">Exit class</a>
     

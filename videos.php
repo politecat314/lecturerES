@@ -1,6 +1,5 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
-
 ?>
 
 <html>
@@ -55,39 +54,33 @@ include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
 
     <div class="container">
     <br>
-    <h3>Select a topics to begin learning</h3>
-    <br>
-    <form method="get" action="videos.php">
-    <div class="list-group">
-        <?php
-            $conn = OpenCon();
+    <?php
+    $topic_id = $_GET['topic'];
+
+    $conn = OpenCon();
             // echo "Connected Successfully";
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
             
-            $sql = "SELECT topic_id, topic_name FROM topic";
+            $sql = "SELECT topic_name FROM topic WHERE topic_id = $topic_id";
             $result = $conn->query($sql);
             
             if ($result->num_rows > 0) {
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
                 // echo "id: " . $row["topic_id"]. " - Name: " . $row["topic_name"] . "<br>";
-                echo '<button name="topic" value="'. $row["topic_id"] .'" type="submit" class="list-group-item list-group-item-action">'.$row["topic_name"].'</button>';
+                    $topic_name = $row["topic_name"];
                 }
             } else {
                 echo "0 results";
             }
             CloseCon($conn);
-        
-        ?>
-
-        <!-- <button type="submit" name="btnSubmit" class="list-group-item list-group-item-action">Dapibus ac facilisis in</button> -->
-        <!-- <button type="button" class="list-group-item list-group-item-action">Morbi leo risus</button>
-        <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
-        <button type="button" class="list-group-item list-group-item-action" disabled>Vestibulum at eros</button> -->
-    </div>
-    </form>
+    
+    echo "<h3>Lecture videos for ". $topic_name ."</h3>";        
+    ?>
+    
+    <br>
     
     
     </div>
