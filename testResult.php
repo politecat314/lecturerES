@@ -162,7 +162,22 @@ include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
 
         <div id="blockB">
         <br>
-        <h2>Example heading <span class="badge badge-secondary">New</span></h2>
+            <?php
+            $total_questions = 0;
+            $total_correct = 0;
+            foreach($results_info as $value) {
+                $total_questions += $value['total'];
+                $total_correct += $value['correct'];
+            }
+            $heading_badge_color = 'badge-danger';
+            $percentage = $total_questions/$total_correct;
+            if ($percentage > 0.6) {
+                $heading_badge_color = 'badge-success';
+            }
+            echo '<h2>You scored <span class="badge '.$heading_badge_color.'">'.$total_correct.'/'.$total_questions.'</span></h2>';
+            ?>
+
+        
         <br>
 
 
