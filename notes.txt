@@ -1,0 +1,20 @@
+TODO
+------
+Add reasoning - able to answer why questions
+
+
+Notes
+-------
+Answer score more than 60% means pass
+for both topic wise and full test paper
+
+
+Reasoning
+----------
+This topic learned?
+- all videos watched AND
+- faq for topic looked at AND
+- questions for topic done
+
+Ready for exam?
+- all topics learned
