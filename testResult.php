@@ -1,5 +1,5 @@
 <?php
-print_r($_GET);
+// print_r($_GET);
 ?>
 
 <?php
@@ -11,7 +11,23 @@ include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <style>
+        #blockContainer {
+            display: -webkit-box;
+            display: -moz-box;
+            display: box;
 
+            -webkit-box-orient: vertical;
+            -moz-box-orient: vertical;
+            box-orient: vertical;
+        }
+
+        #blockA {
+            -webkit-box-ordinal-group: 2;
+            -moz-box-ordinal-group: 2;
+            box-ordinal-group: 2;
+        }
+    </style>
 </head>
 
 
@@ -56,158 +72,146 @@ include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
     </nav>
 
 
-    <div class="container">
-        <br>
-        <h3>Your result</h3>
-        <br>
+    <div class="container" id="blockContainer">
+        
 
 
+        <div id="blockA">
 
-        <?php
-        $conn = OpenCon();
-        // echo "Connected Successfully";
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+            <?php
+            $results_info = array(); // question_id => (question_string, correct_answers, total_answers)
 
-        $sql = "SELECT question_id, question FROM questions";
-        $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
+            $conn = OpenCon();
+            // echo "Connected Successfully";
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
 
-            $i = 0;
-            // output data of each row
-            while ($row = $result->fetch_assoc()) {
-                $question_id = $row['question_id'];
-                $question = $row['question'];
+            $sql = "SELECT question_id, question, topic_id FROM questions";
+            $result = $conn->query($sql);
 
-                echo '<div>
-                        <p><b>' . ++$i . '. '.$question.' </b></p>
+            if ($result->num_rows > 0) {
+
+                $i = 0;
+                // output data of each row
+                while ($row = $result->fetch_assoc()) {
+                    $question_id = $row['question_id'];
+                    $question = $row['question'];
+                    $topic_id = $row['topic_id'];
+
+                    if (!array_key_exists($topic_id, $results_info)) {
+                        $results_info[$topic_id] = array('correct'=>0, 'total'=>0);
+                    }
+                    
+                    $results_info[$topic_id]['total'] += 1;
+                    echo '<div>
+                        <p><b>' . ++$i . '. ' . $question . ' </b></p>
                         <ul class="list-group">';
 
-                $sql2 = "SELECT * FROM answers WHERE question_id = $question_id";
-                $result2 = $conn->query($sql2);
+                    $sql2 = "SELECT * FROM answers WHERE question_id = $question_id";
+                    $result2 = $conn->query($sql2);
+                    
+                    $answer_submitted = $_GET[$question_id];
+                    // var_dump($result2);
+                    if ($result2->num_rows > 0) {
+                        // output data of each row
+                        while ($row2 = $result2->fetch_assoc()) {
+                            $ans_highlight = '';
 
-                $answer_submitted = $_GET[$question_id];
-                // var_dump($result2);
-                if ($result2->num_rows > 0) {
-                    // output data of each row
-                    while ($row2 = $result2->fetch_assoc()) {
-                        $ans_highlight = '';
-
-                        
-
-
-                        $correct = '';
-                        
-                        if ($row2['correct_ans']) {
-                            $correct = 'Correct answer';
-
-                            if ($row2['answers_id'] === $answer_submitted) {
-                                $ans_highlight = 'list-group-item-success';
-                            }
                             
 
-                        } else if ($row2['answers_id'] === $answer_submitted) { // is this the wrong answer which was submitted?
-                            $ans_highlight = 'list-group-item-danger';
-                        }
+
+                            $correct = '';
+
+                            if ($row2['correct_ans']) {
+                                $correct = 'Correct answer';
+
+                                if ($row2['answers_id'] === $answer_submitted) {
+                                    $ans_highlight = 'list-group-item-success';
+                                    $results_info[$topic_id]['correct'] += 1;
+                                }
+                            } else if ($row2['answers_id'] === $answer_submitted) { // is this the wrong answer which was submitted?
+                                $ans_highlight = 'list-group-item-danger';
+                            }
 
                             echo  '
 
-                              <li class="list-group-item d-flex justify-content-between align-items-center '.$ans_highlight.'">
+                              <li class="list-group-item d-flex justify-content-between align-items-center ' . $ans_highlight . '">
                               ' . $row2['answer_string'] . '
-                              <span class="badge badge-success badge pill">'.$correct.'</span>
+                              <span class="badge badge-success badge pill">' . $correct . '</span>
                               </li>';
-                          
-                    }
+                        }
 
-                    echo '</ul>
+                        echo '</ul>
                     <br><br>
                 </div>';
-                } else {
-                    echo "0 results";
+                    } else {
+                        echo "0 results";
+                    }
                 }
+            } else {
+                echo "0 results";
             }
-        } else {
-            echo "0 results";
-        }
-        CloseCon($conn);
+            CloseCon($conn);
 
-        ?>
+            ?>
 
-
-
-        <div>
-            <p><b>1. This is the first question</b></p>
-
-
-            <ul class="list-group">
-
-                <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">
-                    Cras justo odio
-                    <span class="badge badge-primary badge-pill">14</span>
-                </li>
-
-
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Dapibus ac facilisis in
-                    <span class="badge badge-primary badge-pill">2</span>
-                </li>
-
-                <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-success">
-                    Morbi leo risus
-                    <span class="badge badge-success badge pill">Correct Answer</span>
-                </li>
-            </ul>
-            <br><br>
         </div>
 
-        <div>
-            <p><b>1. This is the first question</b></p>
-            <ul class="list-group">
 
-                <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">
-                    Cras justo odio
-                    <span class="badge badge-primary badge-pill">14</span>
-                </li>
+        <div id="blockB">
+        <br>
+        <h2>Example heading <span class="badge badge-secondary">New</span></h2>
+        <br>
 
 
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Dapibus ac facilisis in
-                    <span class="badge badge-primary badge-pill">2</span>
-                </li>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Topic</th>
+                        <th scope="col">Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        // print_r($results_info);
+                        
+                        $conn = OpenCon();
+                        // echo "Connected Successfully";
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+                        
+                        $sql = "SELECT topic_id, topic_name FROM topic";
+                        $result = $conn->query($sql);
+                        
+                        if ($result->num_rows > 0) {
 
-                <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-success">
-                    Morbi leo risus
-                    <span class="badge badge-success badge pill">Correct Answer</span>
-                </li>
-            </ul>
-            <br><br>
+                            $i = 0;
+                            // output data of each row
+                            while($row = $result->fetch_assoc()) {
+                                echo '<tr>
+                                <th scope="row">'.++$i.'</th>
+                                <td>'.$row['topic_name'].'</td>
+                                <td>'.$results_info[$row['topic_id']]['correct']."/".$results_info[$row['topic_id']]['total'].'</td>
+                            </tr>';
+                            }
+                        } else {
+                            echo "0 results";
+                        }
+                        CloseCon($conn);
+
+                    ?>
+
+                </tbody>
+            </table>
+            <br>
+            <hr>
+
+
         </div>
-
-        <div>
-            <p><b>1. This is the first question</b></p>
-            <ul class="list-group">
-
-                <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">
-                    Cras justo odio
-                    <span class="badge badge-primary badge-pill">14</span>
-                </li>
-
-
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Dapibus ac facilisis in
-                    <span class="badge badge-primary badge-pill">2</span>
-                </li>
-
-                <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-success">
-                    Morbi leo risus
-                    <span class="badge badge-success badge pill">Correct Answer</span>
-                </li>
-            </ul>
-            <br><br>
-        </div>
-
 
 
     </div>
