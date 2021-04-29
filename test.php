@@ -77,7 +77,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
                 $question_id = $row['question_id'];
                 $question = $row['question'];
 
-                echo "<b> $question_id $question </b><br>";
+                echo "<b>". ++$i .". $question </b><br>";
 
                 $sql2 = "SELECT answers_id, answer_string FROM answers WHERE question_id = $question_id";
                 $result2 = $conn->query($sql2);
@@ -86,8 +86,13 @@ include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
                 if ($result2->num_rows > 0) {
                     // output data of each row
                     while ($row2 = $result2->fetch_assoc()) {
-                        print_r($row2);
-                        echo "<br><br>";
+                        echo '<div class="form-check">
+                                <input class="form-check-input" type="radio" name="'.$question_id.'" id="'.$row2['answers_id'].'" value="'.$row2['answers_id'].'">
+                                <label class="form-check-label" for="'.$row2['answers_id'].'">
+                                    '.$row2['answer_string'].'
+                                </label>
+                              </div><br>';
+
                     }
                 } else {
                     echo "0 results";
@@ -101,39 +106,6 @@ include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
         CloseCon($conn);
         
         ?>
-
-
-        <p><b>1. This is question 1</b>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-            <label class="form-check-label" for="exampleRadios1">
-                Default radio
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-            <label class="form-check-label" for="exampleRadios2">
-                Second default radio
-            </label>
-        </div>
-        <br>
-        </p>
-
-        <p><b>2. This is question 1</b>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadiosb" id="exampleRadios3" value="option1" checked>
-            <label class="form-check-label" for="exampleRadios3">
-                Default radio
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadiosb" id="exampleRadios4" value="option2">
-            <label class="form-check-label" for="exampleRadios4">
-                Second default radio
-            </label>
-        </div>
-        <br>
-        </p>
 
         <button type="submit" class="btn btn-primary">Submit</button>
         </form>
