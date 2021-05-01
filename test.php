@@ -1,6 +1,7 @@
 <?php
 // include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
 include 'connection.php';
+include 'helper_functions.php';
 ?>
 
 <html>
@@ -79,7 +80,17 @@ include 'connection.php';
 
     <div class="container">
         <br>
-        <h3>Please answer all questions</h3>
+
+        <h3>
+        <?php
+        if (empty($_GET)) {
+            echo "Please answer all questions";
+        } else {
+            echo "Practice questions for ". getTopicName($_GET['topic_id']);
+        }
+        ?>
+        </h3>
+        
         <br>
 
         <form action="testResult.php" method="get">
@@ -92,6 +103,10 @@ include 'connection.php';
         }
         
         $sql = "SELECT question_id, question FROM questions";
+        if (!empty($_GET)) {
+            $sql = $sql . " WHERE topic_id=".$_GET['topic_id'];
+        }
+        
         $result = $conn->query($sql);
         
         if ($result->num_rows > 0) {

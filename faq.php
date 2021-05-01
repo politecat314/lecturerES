@@ -1,6 +1,7 @@
 <?php
 // include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
 include 'connection.php';
+include 'helper_functions.php';
 ?>
 
 
@@ -82,28 +83,7 @@ include 'connection.php';
         <?php
         echo "<h3>Frequently asked questions";
         if (!empty($_GET)) {
-            
-            $conn = OpenCon();
-            // echo "Connected Successfully";
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
-            $sql = "SELECT topic_name FROM topic WHERE topic_id=".$_GET['topic_id'];
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-
-                $i = 0;
-                // output data of each row
-                while ($row = $result->fetch_assoc()) {
-                    echo " for ".$row['topic_name'];
-                }
-            } else {
-                echo "0 results";
-            }
-            CloseCon($conn);
+            echo " for ". getTopicName($_GET['topic_id']);
         }
         echo "</h3>";
         ?>
