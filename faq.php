@@ -27,33 +27,33 @@ include 'connection.php';
                     <li class="nav-item">
                         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="topics.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Topics
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <?php
-                                $conn = OpenCon();
-                                // echo "Connected Successfully";
-                                if ($conn->connect_error) {
-                                    die("Connection failed: " . $conn->connect_error);
-                                }
-                                
-                                $sql = "SELECT topic_id, topic_name FROM topic";
-                                $result = $conn->query($sql);
-                                
-                                if ($result->num_rows > 0) {
-                                    // output data of each row
-                                    while($row = $result->fetch_assoc()) {
+                            $conn = OpenCon();
+                            // echo "Connected Successfully";
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            }
+
+                            $sql = "SELECT topic_id, topic_name FROM topic";
+                            $result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                // output data of each row
+                                while ($row = $result->fetch_assoc()) {
                                     // echo "id: " . $row["topic_id"]. " - Name: " . $row["topic_name"] . "<br>";
-                                    echo '<a class="dropdown-item" href="topicSelected.php?topic='.$row['topic_id'].'">'.$row['topic_name'].'</a>';
-                                    }
-                                } else {
-                                    echo "0 results";
+                                    echo '<a class="dropdown-item" href="topicSelected.php?topic=' . $row['topic_id'] . '">' . $row['topic_name'] . '</a>';
                                 }
-                                CloseCon($conn);
-                            
+                            } else {
+                                echo "0 results";
+                            }
+                            CloseCon($conn);
+
                             ?>
                         </div>
                     </li>
@@ -66,7 +66,7 @@ include 'connection.php';
                         <a class="nav-link" href="test.php">Test</a>
                     </li>
 
-                    
+
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -78,33 +78,61 @@ include 'connection.php';
 
 
     <div class="container">
-    <br>
-    <h3>Frequently asked questions</h3>
-    <br>
+        <br>
+        <?php
+        echo "<h3>Frequently asked questions";
+        if (!empty($_GET)) {
+            
+            $conn = OpenCon();
+            // echo "Connected Successfully";
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
 
-    <?php
+            $sql = "SELECT topic_name FROM topic WHERE topic_id=".$_GET['topic_id'];
+
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+
+                $i = 0;
+                // output data of each row
+                while ($row = $result->fetch_assoc()) {
+                    echo " for ".$row['topic_name'];
+                }
+            } else {
+                echo "0 results";
+            }
+            CloseCon($conn);
+        }
+        echo "</h3>";
+        ?>
+
+        <br>
+
+        <?php
         $conn = OpenCon();
         // echo "Connected Successfully";
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-        
+
         $sql = "SELECT faquestion, fanswer FROM faq";
 
         if (!empty($_GET)) {
-            $sql = $sql . " WHERE topic_id=".$_GET['topic_id'];  
+            $sql = $sql . " WHERE topic_id=" . $_GET['topic_id'];
         }
-        
+
         $result = $conn->query($sql);
-        
+
         if ($result->num_rows > 0) {
 
             $i = 0;
             // output data of each row
-            while($row = $result->fetch_assoc()) {
+            while ($row = $result->fetch_assoc()) {
                 echo "<div>
-                    <p><b>".++$i.". ".$row['faquestion']."</b></p>
-                    <p>".$row['fanswer']."</p>
+                    <p><b>" . ++$i . ". " . $row['faquestion'] . "</b></p>
+                    <p>" . $row['fanswer'] . "</p>
                     <br>
                 </div>";
             }
@@ -112,13 +140,13 @@ include 'connection.php';
             echo "0 results";
         }
         CloseCon($conn);
-    
-    ?>
+
+        ?>
 
 
-    
 
-    
+
+
     </div>
 
 
