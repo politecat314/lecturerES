@@ -87,7 +87,7 @@ include 'connection.php';
                 die("Connection failed: " . $conn->connect_error);
             }
             
-            $sql = "SELECT topic_name FROM topic WHERE topic_id = $topic_id";
+            $sql = "SELECT topic_name, topic_id FROM topic WHERE topic_id = $topic_id";
             $result = $conn->query($sql);
             
             if ($result->num_rows > 0) {
@@ -95,17 +95,22 @@ include 'connection.php';
                 while($row = $result->fetch_assoc()) {
                 // echo "id: " . $row["topic_id"]. " - Name: " . $row["topic_name"] . "<br>";
                     $topic_name = $row["topic_name"];
+                    $topic_id = $row['topic_id'];
                 }
             } else {
                 echo "0 results";
             }
             CloseCon($conn);
     
-    echo "<h2 class='text-center'><b>". $topic_name ."</b></h2><br>";        
+    echo "<h2 class='text-center'><b>". $topic_name ."</b></h2><br>";
+      
     ?>
     
     <br>
     
+    <form action="faq.php" method="get">
+        <button type="submit" name="topic_id" value="1" class="btn btn-primary btn-lg">Large button</button>
+    </form>
     
     </div>
 

@@ -90,6 +90,11 @@ include 'connection.php';
         }
         
         $sql = "SELECT faquestion, fanswer FROM faq";
+
+        if (!empty($_GET)) {
+            $sql = $sql . " WHERE topic_id=".$_GET['topic_id'];  
+        }
+        
         $result = $conn->query($sql);
         
         if ($result->num_rows > 0) {

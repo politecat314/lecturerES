@@ -13,6 +13,7 @@ for both topic wise and full test paper
 Reasoning
 ----------
 This topic learned?
+- look at lecture notes AND
 - all videos watched AND
 - faq for topic looked at AND
 - questions for topic done
