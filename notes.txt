@@ -1,5 +1,6 @@
 TODO
 ------
+Add reset button
 Add reasoning - able to answer why questions
 
 
@@ -18,3 +19,16 @@ This topic learned?
 
 Ready for exam?
 - all topics learned
+
+
+dbase updates
+--------------------
+videos
+
+video_id    url    title    watched (boolean)    topic_id
+
+
+
+faq
+
+add new column: watched (boolean)

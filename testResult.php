@@ -3,7 +3,8 @@
 ?>
 
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
+// include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
+include 'connection.php';
 ?>
 
 <html>
@@ -49,19 +50,44 @@ include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
                         <a class="nav-link" href="#">Link</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
+                        <a class="nav-link dropdown-toggle" href="topics.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Topics
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <?php
+                                $conn = OpenCon();
+                                // echo "Connected Successfully";
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+                                
+                                $sql = "SELECT topic_id, topic_name FROM topic";
+                                $result = $conn->query($sql);
+                                
+                                if ($result->num_rows > 0) {
+                                    // output data of each row
+                                    while($row = $result->fetch_assoc()) {
+                                    // echo "id: " . $row["topic_id"]. " - Name: " . $row["topic_name"] . "<br>";
+                                    echo '<a class="dropdown-item" href="topicSelected.php?topic='.$row['topic_id'].'">'.$row['topic_name'].'</a>';
+                                    }
+                                } else {
+                                    echo "0 results";
+                                }
+                                CloseCon($conn);
+                            
+                            ?>
                         </div>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
+                        <a class="nav-link" href="faq.php">FAQ</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="test.php">Test</a>
+                    </li>
+
+                    
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
