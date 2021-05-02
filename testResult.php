@@ -43,7 +43,7 @@ include 'connection.php';
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                     </li>
                     
@@ -124,6 +124,10 @@ include 'connection.php';
                     $question = $row['question'];
                     $topic_id = $row['topic_id'];
 
+                    if (!array_key_exists($question_id, $_GET)) {
+                        continue;
+                    }
+
                     if (!array_key_exists($topic_id, $results_info)) {
                         $results_info[$topic_id] = array('correct'=>0, 'total'=>0);
                     }
@@ -194,11 +198,19 @@ include 'connection.php';
                 $total_correct += $value['correct'];
             }
             $heading_badge_color = 'badge-danger';
-            $percentage = $total_questions/$total_correct;
-            if ($percentage > 0.6) {
+
+            $percentage = 0;
+
+            if ($total_correct !== 0) {
+                $percentage = $total_correct/$total_questions;
+            }
+            $pass = 'failed';
+            if ($percentage >= 0.6) {
                 $heading_badge_color = 'badge-success';
+                $pass = 'passed';
             }
             echo '<h2>You scored <span class="badge '.$heading_badge_color.'">'.$total_correct.'/'.$total_questions.'</span></h2>';
+            echo '<h4>You '.$pass.' this test with '.($percentage*100).'%</h4>';
             ?>
 
         
@@ -231,6 +243,10 @@ include 'connection.php';
                             $i = 0;
                             // output data of each row
                             while($row = $result->fetch_assoc()) {
+
+                            if (!array_key_exists($row['topic_id'],$results_info)) {
+                                continue;
+                            }    
                                 echo '<tr>
                                 <th scope="row">'.++$i.'</th>
                                 <td>'.$row['topic_name'].'</td>
