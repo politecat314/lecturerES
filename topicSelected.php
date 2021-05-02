@@ -113,7 +113,7 @@ include 'helper_functions.php';
             <a href="<?php echo getLectureURL($topic_id); ?>" onclick="<?php echo 'update(' . $topic_id . ')'; ?>" class="list-group-item list-group-item-action">Lecture notes</a>
             <a href="videos.php?topic_id=<?php echo $topic_id ?>" class="list-group-item list-group-item-action">Watch lecture videos</a>
             <a href="faq.php?topic_id=<?php echo $topic_id ?>" class="list-group-item list-group-item-action">Have a look at frequently asked questions</a>
-            <a href="test.php?topic_id=<?php echo $topic_id ?>" class="list-group-item list-group-item-action">Do practice questions</a>
+            <a href="test.php?topic_id=<?php echo $topic_id ?>" class="list-group-item list-group-item-action">Do test for this topic</a>
         </div>
 
 

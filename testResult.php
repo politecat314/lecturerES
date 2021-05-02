@@ -5,6 +5,7 @@
 <?php
 // include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
 include 'connection.php';
+include 'helper_functions.php';
 ?>
 
 <html>
@@ -158,9 +159,11 @@ include 'connection.php';
                                 if ($row2['answers_id'] === $answer_submitted) {
                                     $ans_highlight = 'list-group-item-success';
                                     $results_info[$topic_id]['correct'] += 1;
+                                    updateQuestionCorrectness($question_id, 1);
                                 }
                             } else if ($row2['answers_id'] === $answer_submitted) { // is this the wrong answer which was submitted?
                                 $ans_highlight = 'list-group-item-danger';
+                                updateQuestionCorrectness($question_id, 0);
                             }
 
                             echo  '

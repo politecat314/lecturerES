@@ -97,7 +97,7 @@ include 'helper_functions.php';
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "SELECT faquestion, fanswer FROM faq";
+        $sql = "SELECT * FROM faq";
 
         if (!empty($_GET)) {
             $sql = $sql . " WHERE topic_id=" . $_GET['topic_id'];
@@ -115,6 +115,8 @@ include 'helper_functions.php';
                     <p>" . $row['fanswer'] . "</p>
                     <br>
                 </div>";
+
+                updateWatchedFAQ($row['faq_id']);
             }
         } else {
             echo "0 results";
