@@ -90,7 +90,7 @@ include 'helper_functions.php';
         }
         ?>
         </h3>
-        
+
         <br>
 
         <form action="testResult.php" method="get">
@@ -127,7 +127,7 @@ include 'helper_functions.php';
                     // output data of each row
                     while ($row2 = $result2->fetch_assoc()) {
                         echo '<div class="form-check">
-                                <input class="form-check-input" type="radio" name="'.$question_id.'" id="'.$row2['answers_id'].'" value="'.$row2['answers_id'].'">
+                                <input required class="form-check-input" type="radio" name="'.$question_id.'" id="'.$row2['answers_id'].'" value="'.$row2['answers_id'].'">
                                 <label class="form-check-label" for="'.$row2['answers_id'].'">
                                     '.$row2['answer_string'].'
                                 </label>
