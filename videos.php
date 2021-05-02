@@ -115,11 +115,12 @@ $topic_id = $_GET['topic_id'];
                 }
 
                 echo '<div class="card">
+                <a href="videoSelected.php?video_id='.$row['video_id'].'">
                         <img class="card-img-top" src="'.getThumbnailsrc($row['url']).'" alt="Thumbnail not available">
                         <div class="card-body">
                             <h5 class="card-title">'.$row['title'].'</h5>
                             <p class="card-text"><small class="text-muted">'.$watched.'</small></p>
-                        </div>
+                        </div></a>
                     </div>';
 
                 if ($i % 3 === 0) {

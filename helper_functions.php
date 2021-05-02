@@ -26,6 +26,31 @@ function getTopicName($topic_id)
 }
 
 
+function getVideoInfo($video_id, $column) {
+    $conn = OpenCon();
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "SELECT * FROM videos WHERE video_id=" . $video_id;
+
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        
+        while ($row = $result->fetch_assoc()) {
+            return $row[$column];
+        }
+    } else {
+        echo "0 results";
+    }
+    CloseCon($conn);
+}
+
+
+
+
 function getVideoId($url) {
     parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
     return $my_array_of_vars['v'];
