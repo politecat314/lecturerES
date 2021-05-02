@@ -1,7 +1,7 @@
 <?php
 include 'connection.php';
-include 'helper_functions.php'
-
+include 'helper_functions.php';
+$topic_id = $_GET['topic_id'];
 ?>
 
 <html>
@@ -84,15 +84,72 @@ include 'helper_functions.php'
 
     <div class="container">
         <br>
-        <h3><?php echo "Lecture videos for ".getTopicName($_GET['topic_id']);?></h3>
+        <h3><?php echo "Lecture videos for " . getTopicName($topic_id); ?></h3>
         <br>
 
-        <div class="card-deck">
+        <?php
+        // code for video cards
+        $conn = OpenCon();
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT * FROM videos WHERE topic_id=$topic_id";
+
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $i = 0;
+
+
+            while ($row = $result->fetch_assoc()) {
+                if ($i % 3 === 0) {
+                    echo '<div class="card-deck">';
+                }
+
+                $i++;
+                $watched = '';
+                if ($row['watched']) {
+                    $watched = 'WATCHED';
+                }
+
+                echo '<div class="card">
+                        <img class="card-img-top" src="'.getThumbnailsrc($row['url']).'" alt="Thumbnail not available">
+                        <div class="card-body">
+                            <h5 class="card-title">'.$row['title'].'</h5>
+                            <p class="card-text"><small class="text-muted">'.$watched.'</small></p>
+                        </div>
+                    </div>';
+
+                if ($i % 3 === 0) {
+                    echo '</div><br>';
+                }
+            }
+
+            if ($i%3!==0) {
+                while($i%3!==0) {
+                    $i++;
+                    echo '<div class="card" style="visibility:hidden;"></div>';
+                }
+                echo '</div><br>';
+            }
+            
+
+
+        } else {
+            echo "0 results";
+        }
+        CloseCon($conn);
+
+
+        ?>
+
+        <!-- <div class="card-deck">
             <div class="card">
                 <img class="card-img-top" src="..." alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
@@ -112,9 +169,17 @@ include 'helper_functions.php'
                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
+            <div class="card">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
         </div>
         <br>
-        
+
         <div class="card-deck">
             <div class="card">
                 <img class="card-img-top" src="download.svg" alt="Card image cap">
@@ -141,7 +206,7 @@ include 'helper_functions.php'
                 </div>
             </div>
         </div>
-        <br>
+        <br> -->
 
     </div>
 

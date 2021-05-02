@@ -35,6 +35,6 @@ function getVideoId($url) {
 function getThumbnailsrc($url) {
     $video_id = getVideoId($url);
 
-    return "http://i3.ytimg.com/vi/$video_id/0.jpg";
+    return "http://i3.ytimg.com/vi/$video_id/hq3.jpg";
 }
 
