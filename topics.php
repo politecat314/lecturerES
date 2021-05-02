@@ -82,7 +82,7 @@ include 'connection.php';
 
     <div class="container">
     <br>
-    <h3>Select a topics to begin learning</h3>
+    <h3>Select a topic to begin learning</h3>
     <br>
     <form method="get" action="topicSelected.php">
     <div class="list-group">
