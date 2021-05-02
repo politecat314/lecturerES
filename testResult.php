@@ -210,7 +210,7 @@ include 'connection.php';
                 $pass = 'passed';
             }
             echo '<h2>You scored <span class="badge '.$heading_badge_color.'">'.$total_correct.'/'.$total_questions.'</span></h2>';
-            echo '<h4>You '.$pass.' this test with '.($percentage*100).'%</h4>';
+            echo '<h4>You '.$pass.' this test with '.number_format($percentage*100,1).'%</h4>';
             ?>
 
         

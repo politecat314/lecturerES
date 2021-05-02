@@ -1,6 +1,7 @@
 <?php
 // include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
 include 'connection.php';
+include 'helper_functions.php';
 ?>
 
 <html>
@@ -108,7 +109,7 @@ include 'connection.php';
 
         
         <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action">Lecture notes</a>
+            <a href="<?php echo getLectureURL($topic_id);?>" class="list-group-item list-group-item-action">Lecture notes</a>
             <a href="videos.php?topic_id=<?php echo $topic_id?>" class="list-group-item list-group-item-action">Watch lecture videos</a>
             <a href="faq.php?topic_id=<?php echo $topic_id?>" class="list-group-item list-group-item-action">Have a look at frequently asked questions</a>
             <a href="test.php?topic_id=<?php echo $topic_id?>" class="list-group-item list-group-item-action">Do practice questions</a>
