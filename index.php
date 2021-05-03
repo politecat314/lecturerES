@@ -7,7 +7,13 @@ include 'connection.php';
 
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <style>
+    a { color:black; }
+a:hover { color:black;
+text-decoration: none; }
+.nav a { color:black; }
+    
+    </style>
 </head>
 
 
@@ -16,7 +22,7 @@ include 'connection.php';
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">
-            Fun With Java ES
+                Fun With Java ES
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -27,7 +33,7 @@ include 'connection.php';
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    
+
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="topics.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -35,26 +41,26 @@ include 'connection.php';
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <?php
-                                $conn = OpenCon();
-                                // echo "Connected Successfully";
-                                if ($conn->connect_error) {
-                                    die("Connection failed: " . $conn->connect_error);
-                                }
-                                
-                                $sql = "SELECT topic_id, topic_name FROM topic";
-                                $result = $conn->query($sql);
-                                
-                                if ($result->num_rows > 0) {
-                                    // output data of each row
-                                    while($row = $result->fetch_assoc()) {
+                            $conn = OpenCon();
+                            // echo "Connected Successfully";
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            }
+
+                            $sql = "SELECT topic_id, topic_name FROM topic";
+                            $result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                // output data of each row
+                                while ($row = $result->fetch_assoc()) {
                                     // echo "id: " . $row["topic_id"]. " - Name: " . $row["topic_name"] . "<br>";
-                                    echo '<a class="dropdown-item" href="topicSelected.php?topic='.$row['topic_id'].'">'.$row['topic_name'].'</a>';
-                                    }
-                                } else {
-                                    echo "0 results";
+                                    echo '<a class="dropdown-item" href="topicSelected.php?topic=' . $row['topic_id'] . '">' . $row['topic_name'] . '</a>';
                                 }
-                                CloseCon($conn);
-                            
+                            } else {
+                                echo "0 results";
+                            }
+                            CloseCon($conn);
+
                             ?>
                         </div>
                     </li>
@@ -75,7 +81,7 @@ include 'connection.php';
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
         </div>
@@ -83,13 +89,43 @@ include 'connection.php';
 
 
     <div class="container">
-    <br>
-    <h3>Good morning and welcome to FOP!</h3>
-    <br>
-    <a class="btn btn-success btn-lg btn-block" href="topics.php">Begin Learning</a>
-    <a class="btn btn-primary btn-lg btn-block" href="faq.php">FAQ</a>
-    <a class="btn btn-secondary btn-lg btn-block" href="test.php">Take a test</a>
-    
+        <br>
+        <h3>Good morning and welcome to FOP!</h3>
+        <br>
+        <!-- <a class="btn btn-success btn-lg btn-block" href="topics.php">Begin Learning</a>
+        <a class="btn btn-primary btn-lg btn-block" href="faq.php">FAQ</a>
+        <a class="btn btn-secondary btn-lg btn-block" href="test.php">Take a test</a> -->
+
+
+        <div class="card-deck">
+            <!-- <div class="card"> -->
+                <a class="card" href="topics.php">
+                <img class="card-img-top" src="./thumbnails/learn.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Begin learning</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+                </a>
+            <!-- </div> -->
+            <!-- <div class="card"> -->
+                <a class="card" href="faq.php">
+                <img class="card-img-top" src="./thumbnails/faq.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">View frequently asked questions</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                </div>
+                </a>
+            <!-- </div> -->
+            <!-- <div class="card"> -->
+                <a class="card" href="test.php">
+                <img class="card-img-top" src="./thumbnails/test.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Take a test</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                </div>
+                </a>
+            <!-- </div> -->
+        </div>
     </div>
 
 
