@@ -100,7 +100,7 @@ text-decoration: none; }
         <div class="card-deck">
             <!-- <div class="card"> -->
                 <a class="card" href="topics.php">
-                <img class="card-img-top" src="./thumbnails/learn.jpg" alt="Card image cap">
+                <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1KUwNiXYEw1F2rHezbtbRj84cVt1k9jx2" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Begin learning</h5>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -109,7 +109,7 @@ text-decoration: none; }
             <!-- </div> -->
             <!-- <div class="card"> -->
                 <a class="card" href="faq.php">
-                <img class="card-img-top" src="./thumbnails/faq.jpg" alt="Card image cap">
+                <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=19jV5mk0pyH1YImVx0KUnKT-_Z4KToawH" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">View frequently asked questions</h5>
                     <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
@@ -118,7 +118,7 @@ text-decoration: none; }
             <!-- </div> -->
             <!-- <div class="card"> -->
                 <a class="card" href="test.php">
-                <img class="card-img-top" src="./thumbnails/test.jpg" alt="Card image cap">
+                <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1q0qd-uhp_WOaPPMaeg01pkUemQU-9Rru" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Take a test</h5>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
