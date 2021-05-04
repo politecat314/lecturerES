@@ -1,10 +1,13 @@
 TODO
 ------
+
+Add reset button
 Add reasoning - able to answer why questions
 
 
 Notes
 -------
+Test score percentage to 1 decimal
 Answer score more than 60% means pass
 for both topic wise and full test paper
 
@@ -12,9 +15,23 @@ for both topic wise and full test paper
 Reasoning
 ----------
 This topic learned?
+- look at lecture notes AND
 - all videos watched AND
 - faq for topic looked at AND
 - questions for topic done
 
 Ready for exam?
 - all topics learned
+
+
+dbase updates
+--------------------
+videos
+
+video_id    url    title    watched (boolean)    topic_id
+
+
+
+faq
+
+add new column: watched (boolean)

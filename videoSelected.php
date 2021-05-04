@@ -1,8 +1,32 @@
 <?php
-// include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
+
 include 'connection.php';
+include 'helper_functions.php';
+
+$video_id = $_GET['video_id'];
+$title = getVideoInfo($video_id, 'title');
+$url = getVideoInfo($video_id, 'url');
+$id = getVideoId($url);
+
+// mark watched as true
+$conn = OpenCon();
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "UPDATE videos SET watched=1 WHERE video_id=$video_id";
+
+    if ($conn->query($sql) === TRUE) {
+        // echo "Record updated successfully";
+      } else {
+        echo "Error updating record: " . $conn->error;
+      }
+
+    CloseCon($conn);
 
 ?>
+
 
 <html>
 
@@ -29,7 +53,7 @@ include 'connection.php';
                     </li>
                     
 
-                    <li class="nav-item dropdown active">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="topics.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Topics
                         </a>
@@ -58,7 +82,7 @@ include 'connection.php';
                             ?>
                         </div>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a class="nav-link" href="faq.php">FAQ</a>
                     </li>
@@ -68,8 +92,10 @@ include 'connection.php';
                     </li>
 
 
-                    
 
+                    <!-- <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li> -->
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -82,47 +108,17 @@ include 'connection.php';
 
     <div class="container">
     <br>
-    <h3>Select a topic to begin learning</h3>
+    <h3>Lecture video: <?php echo $title;?></h3>
     <br>
-    <form method="get" action="topicSelected.php">
-    <div class="list-group">
-        <?php
-            $conn = OpenCon();
-            // echo "Connected Successfully";
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-            
-            $sql = "SELECT topic_id, topic_name FROM topic";
-            $result = $conn->query($sql);
-            
-            if ($result->num_rows > 0) {
-                // output data of each row
-                while($row = $result->fetch_assoc()) {
-                // echo "id: " . $row["topic_id"]. " - Name: " . $row["topic_name"] . "<br>";
-                echo '<button name="topic" value="'. $row["topic_id"] .'" type="submit" class="list-group-item list-group-item-action">'.$row["topic_name"].'</button>';
-                }
-            } else {
-                echo "0 results";
-            }
-            CloseCon($conn);
-        
-        ?>
 
-        <!-- <button type="submit" name="btnSubmit" class="list-group-item list-group-item-action">Dapibus ac facilisis in</button> -->
-        <!-- <button type="button" class="list-group-item list-group-item-action">Morbi leo risus</button>
-        <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
-        <button type="button" class="list-group-item list-group-item-action" disabled>Vestibulum at eros</button> -->
-    </div>
-    </form>
-    
+    <object width="720" height="480" data="http://www.youtube.com/v/<?php echo $id?>" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/<?php echo $id?>" /></object>
     
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
 </body>
 
 </html>

@@ -3,7 +3,9 @@
 ?>
 
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
+// include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
+include 'connection.php';
+include 'helper_functions.php';
 ?>
 
 <html>
@@ -35,33 +37,56 @@ include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.php">LOPES</a>
+            <a class="navbar-brand" href="index.php">Fun With Java ES</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
+                    
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
+                        <a class="nav-link dropdown-toggle" href="topics.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Topics
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <?php
+                                $conn = OpenCon();
+                                // echo "Connected Successfully";
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+                                
+                                $sql = "SELECT topic_id, topic_name FROM topic";
+                                $result = $conn->query($sql);
+                                
+                                if ($result->num_rows > 0) {
+                                    // output data of each row
+                                    while($row = $result->fetch_assoc()) {
+                                    // echo "id: " . $row["topic_id"]. " - Name: " . $row["topic_name"] . "<br>";
+                                    echo '<a class="dropdown-item" href="topicSelected.php?topic='.$row['topic_id'].'">'.$row['topic_name'].'</a>';
+                                    }
+                                } else {
+                                    echo "0 results";
+                                }
+                                CloseCon($conn);
+                            
+                            ?>
                         </div>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
+                        <a class="nav-link" href="faq.php">FAQ</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="test.php">Test</a>
+                    </li>
+
+                    
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -100,6 +125,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
                     $question = $row['question'];
                     $topic_id = $row['topic_id'];
 
+                    if (!array_key_exists($question_id, $_GET)) {
+                        continue;
+                    }
+
                     if (!array_key_exists($topic_id, $results_info)) {
                         $results_info[$topic_id] = array('correct'=>0, 'total'=>0);
                     }
@@ -130,9 +159,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
                                 if ($row2['answers_id'] === $answer_submitted) {
                                     $ans_highlight = 'list-group-item-success';
                                     $results_info[$topic_id]['correct'] += 1;
+                                    updateQuestionCorrectness($question_id, 1);
                                 }
                             } else if ($row2['answers_id'] === $answer_submitted) { // is this the wrong answer which was submitted?
                                 $ans_highlight = 'list-group-item-danger';
+                                updateQuestionCorrectness($question_id, 0);
                             }
 
                             echo  '
@@ -170,11 +201,19 @@ include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
                 $total_correct += $value['correct'];
             }
             $heading_badge_color = 'badge-danger';
-            $percentage = $total_questions/$total_correct;
-            if ($percentage > 0.6) {
+
+            $percentage = 0;
+
+            if ($total_correct !== 0) {
+                $percentage = $total_correct/$total_questions;
+            }
+            $pass = 'failed';
+            if ($percentage >= 0.6) {
                 $heading_badge_color = 'badge-success';
+                $pass = 'passed';
             }
             echo '<h2>You scored <span class="badge '.$heading_badge_color.'">'.$total_correct.'/'.$total_questions.'</span></h2>';
+            echo '<h4>You '.$pass.' this test with '.number_format($percentage*100,1).'%</h4>';
             ?>
 
         
@@ -207,6 +246,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/es/connection.php';
                             $i = 0;
                             // output data of each row
                             while($row = $result->fetch_assoc()) {
+
+                            if (!array_key_exists($row['topic_id'],$results_info)) {
+                                continue;
+                            }    
                                 echo '<tr>
                                 <th scope="row">'.++$i.'</th>
                                 <td>'.$row['topic_name'].'</td>

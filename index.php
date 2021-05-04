@@ -1,9 +1,19 @@
+<?php
+include 'connection.php';
+
+?>
+
 <html>
 
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-
+    <style>
+    a { color:black; }
+a:hover { color:black;
+text-decoration: none; }
+.nav a { color:black; }
+    
+    </style>
 </head>
 
 
@@ -11,7 +21,9 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">LOPES</a>
+            <a class="navbar-brand" href="#">
+                Fun With Java ES
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -21,27 +33,55 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
+
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
+                        <a class="nav-link dropdown-toggle" href="topics.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Topics
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <?php
+                            $conn = OpenCon();
+                            // echo "Connected Successfully";
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            }
+
+                            $sql = "SELECT topic_id, topic_name FROM topic";
+                            $result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                // output data of each row
+                                while ($row = $result->fetch_assoc()) {
+                                    // echo "id: " . $row["topic_id"]. " - Name: " . $row["topic_name"] . "<br>";
+                                    echo '<a class="dropdown-item" href="topicSelected.php?topic=' . $row['topic_id'] . '">' . $row['topic_name'] . '</a>';
+                                }
+                            } else {
+                                echo "0 results";
+                            }
+                            CloseCon($conn);
+
+                            ?>
                         </div>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
+                        <a class="nav-link" href="faq.php">FAQ</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="test.php">Test</a>
+                    </li>
+
+
+
+                    <!-- <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li> -->
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
         </div>
@@ -49,13 +89,43 @@
 
 
     <div class="container">
-    <br>
-    <h3>Good morning and welcome to FOP!</h3>
-    <br>
-    <a class="btn btn-success btn-lg btn-block" href="topics.php">Begin Learning</a>
-    <a class="btn btn-primary btn-lg btn-block" href="faq.php">FAQ</a>
-    <a class="btn btn-secondary btn-lg btn-block" href="test.php">Take a test</a>
-    
+        <br>
+        <h3>Good morning and welcome to FOP!</h3>
+        <br>
+        <!-- <a class="btn btn-success btn-lg btn-block" href="topics.php">Begin Learning</a>
+        <a class="btn btn-primary btn-lg btn-block" href="faq.php">FAQ</a>
+        <a class="btn btn-secondary btn-lg btn-block" href="test.php">Take a test</a> -->
+
+
+        <div class="card-deck">
+            <!-- <div class="card"> -->
+                <a class="card" href="topics.php">
+                <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1KUwNiXYEw1F2rHezbtbRj84cVt1k9jx2" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Begin learning</h5>
+                    <p class="card-text">Take your first step to learn and understand more about Java programming language.</p>
+                </div>
+                </a>
+            <!-- </div> -->
+            <!-- <div class="card"> -->
+                <a class="card" href="faq.php">
+                <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=19jV5mk0pyH1YImVx0KUnKT-_Z4KToawH" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">View frequently asked questions</h5>
+                    <p class="card-text">Questions that might help you to code Java like a pro.</p>
+                </div>
+                </a>
+            <!-- </div> -->
+            <!-- <div class="card"> -->
+                <a class="card" href="test.php">
+                <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1q0qd-uhp_WOaPPMaeg01pkUemQU-9Rru" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Take a test</h5>
+                    <p class="card-text">Test your knowledge about Java programming language with our sets of questions based on what you learnt.</p>
+                </div>
+                </a>
+            <!-- </div> -->
+        </div>
     </div>
 
 
