@@ -54,7 +54,7 @@ $conn = OpenCon();
 
     $allwatched=1;
     for($j=0;$j<sizeof($watchedtopic);$j++){
-        echo "Watched topic ".$j." is ".$watchedtopic[$j]." <br> ";
+        echo "Watched topic ".($j+1)." is ".$watchedtopic[$j]." <br> ";
         $allwatched=$allwatched & $watchedtopic[$j];
     }
     

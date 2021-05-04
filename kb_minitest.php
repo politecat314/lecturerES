@@ -26,7 +26,7 @@ $conn = OpenCon();
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT topic_id,watched  FROM faq";
+    $sql = "SELECT question_id,topic_id,correct FROM questions";
 
     $result = $conn->query($sql);
                                 
@@ -36,15 +36,15 @@ $conn = OpenCon();
         // output data of each row
         while($row = $result->fetch_assoc()) {
         // echo "id: " . $row["topic_id"]. " - Name: " . $row["topic_name"] . "<br>";
-        echo "TOPIC ID: " . $row["topic_id"] . " - Watched: " .$row["watched"]."<br>";
+        echo "Question ID: " . $row["question_id"] ." - TOPIC ID: " . $row["topic_id"] . " - Answered: " .$row["correct"]."<br>";
         
 
         
         if($row["topic_id"]==$i+1){
-            $watchedtopic[$i] = $watchedtopic[$i] & $row["watched"];
+            $watchedtopic[$i] = $watchedtopic[$i] & $row["correct"];
         }else{
             $i++;
-            $watchedtopic[$i] = $watchedtopic[$i] & $row["watched"];
+            $watchedtopic[$i] = $watchedtopic[$i] & $row["correct"];
         }
 
         }
@@ -54,12 +54,12 @@ $conn = OpenCon();
 
     $allwatched=1;
     for($j=0;$j<sizeof($watchedtopic);$j++){
-        echo "Watched topic ".($j+1)." is ".$watchedtopic[$j]." <br> ";
+        echo "Answered questions from topic ".($j+1)." is ".$watchedtopic[$j]." <br> ";
         $allwatched=$allwatched & $watchedtopic[$j];
     }
     
     if($allwatched==1)
-     echo "All FAQ watched";
+     echo "All questions passed";
 
     CloseCon($conn);
 
