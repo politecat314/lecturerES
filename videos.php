@@ -112,6 +112,7 @@ $topic_id = $_GET['topic_id'];
                 $watched = '';
                 if ($row['watched']) {
                     $watched = 'WATCHED';
+                    
                 }
 
                 echo '<div class="card">
