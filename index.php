@@ -103,7 +103,7 @@ text-decoration: none; }
                 <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1KUwNiXYEw1F2rHezbtbRj84cVt1k9jx2" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Begin learning</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text">Take your first step to learn and understand more about Java programming language.</p>
                 </div>
                 </a>
             <!-- </div> -->
@@ -112,7 +112,7 @@ text-decoration: none; }
                 <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=19jV5mk0pyH1YImVx0KUnKT-_Z4KToawH" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">View frequently asked questions</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text">Questions that might help you to code Java like a pro.</p>
                 </div>
                 </a>
             <!-- </div> -->
@@ -121,7 +121,7 @@ text-decoration: none; }
                 <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1q0qd-uhp_WOaPPMaeg01pkUemQU-9Rru" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Take a test</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <p class="card-text">Test your knowledge about Java programming language with our sets of questions based on what you learnt.</p>
                 </div>
                 </a>
             <!-- </div> -->
