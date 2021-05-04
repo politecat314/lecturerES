@@ -11,9 +11,9 @@
 
 <?php
 
-include 'connection.php';
-include 'helper_functions.php';
-
+include_once 'connection.php';
+include_once 'helper_functions.php';
+echo "FAQs<br>";
 // $video_id = $_GET['video_id'];
 // $title = getVideoInfo($video_id, 'title');
 // $url = getVideoInfo($video_id, 'url');
@@ -52,14 +52,14 @@ $conn = OpenCon();
         echo "0 results";
     }
 
-    $allwatched=1;
+    $all_faq_watched=1;
     for($j=0;$j<sizeof($watchedtopic);$j++){
         echo "Watched topic ".($j+1)." is ".$watchedtopic[$j]." <br> ";
-        $allwatched=$allwatched & $watchedtopic[$j];
+        $all_faq_watched=$all_faq_watched & $watchedtopic[$j];
     }
     
-    if($allwatched==1)
-     echo "All FAQ watched";
+    if($all_faq_watched==1)
+     echo "All FAQ watched <br>";
 
     CloseCon($conn);
 

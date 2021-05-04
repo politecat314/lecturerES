@@ -11,9 +11,9 @@
 
 <?php
 
-include 'connection.php';
-include 'helper_functions.php';
-
+include_once 'connection.php';
+include_once 'helper_functions.php';
+echo "MINITEST<br>";
 // $video_id = $_GET['video_id'];
 // $title = getVideoInfo($video_id, 'title');
 // $url = getVideoInfo($video_id, 'url');
@@ -52,14 +52,14 @@ $conn = OpenCon();
         echo "0 results";
     }
 
-    $allwatched=1;
+    $all_minitest_watched=1;
     for($j=0;$j<sizeof($watchedtopic);$j++){
         echo "Answered questions from topic ".($j+1)." is ".$watchedtopic[$j]." <br> ";
-        $allwatched=$allwatched & $watchedtopic[$j];
+        $all_minitest_watched=$all_minitest_watched & $watchedtopic[$j];
     }
     
-    if($allwatched==1)
-     echo "All questions passed";
+    if($all_minitest_watched==1)
+     echo "All questions passed <br>";
 
     CloseCon($conn);
 
