@@ -30,11 +30,11 @@ text-decoration: none; }
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="intro.php">Intro</a>
                     </li>
 
@@ -93,51 +93,32 @@ text-decoration: none; }
 
     <div class="container">
         <br>
-        <h3>Good morning and welcome to FOP!</h3>
+        <h3>Synopsis of This Course🐱‍💻:</h3>
         <br>
-        <!-- <a class="btn btn-success btn-lg btn-block" href="topics.php">Begin Learning</a>
-        <a class="btn btn-primary btn-lg btn-block" href="faq.php">FAQ</a>
-        <a class="btn btn-secondary btn-lg btn-block" href="test.php">Take a test</a> -->
+            <h5>
+                This course covers problem solving and the
+                fundamental of programming. These include problem
+                solving techniques, the basic structure of computer
+                program, the fundamental concepts of objectoriented programming, data types and operations,
+                selection control structures i.e. if and switch,
+                repetition control structures i.e. for, while, do-while,
+                function, array, string, and programming
+                practice.
+            </h5>
 
+        <br>
+        <h3>Course Learning Outcomes (CLO)🎯:</h3>
+        <br>
+        <h5>
+        <ul>
+            <li> Define the steps of problem solving in programming</li>
+            <li> Rewrite programs that contain errors.</li>
+            <li> Develop programs based on principles of object-oriented.</li>
+        </ul>
+        </h5>
+        <br>
 
-        <div class="card-deck">
-            <!-- <div class="card"> -->
-                <a class="card" href="intro.php">
-                <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1hsc0CBaqr4JOlwxX9RJ99mDTGG8bC7rd" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Introduction to FOP</h5>
-                    <p class="card-text">Read about the synopsis and learning outcomes of this course.</p>
-                </div>
-                </a>
-            <!-- </div> -->
-            <!-- <div class="card"> -->
-                <a class="card" href="topics.php">
-                <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1KUwNiXYEw1F2rHezbtbRj84cVt1k9jx2" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Begin learning</h5>
-                    <p class="card-text">Take your first step to learn and understand more about Java programming language.</p>
-                </div>
-                </a>
-            <!-- </div> -->
-            <!-- <div class="card"> -->
-                <a class="card" href="faq.php">
-                <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=19jV5mk0pyH1YImVx0KUnKT-_Z4KToawH" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">View frequently asked questions</h5>
-                    <p class="card-text">Questions that might help you to code Java like a pro.</p>
-                </div>
-                </a>
-            <!-- </div> -->
-            <!-- <div class="card"> -->
-                <a class="card" href="test.php">
-                <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1q0qd-uhp_WOaPPMaeg01pkUemQU-9Rru" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Take a test</h5>
-                    <p class="card-text">Test your knowledge about Java programming language with our sets of questions based on what you learnt.</p>
-                </div>
-                </a>
-            <!-- </div> -->
-        </div>
+        
     </div>
 
 

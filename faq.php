@@ -29,6 +29,10 @@ include 'helper_functions.php';
                         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="intro.php">Intro</a>
+                    </li>
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="topics.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Topics

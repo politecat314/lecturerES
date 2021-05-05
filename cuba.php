@@ -17,6 +17,7 @@
     
 <h1>
     <?php
+    
     // All videos have been watched OR lecture notes have been read AND
     // Frequently Asked Question is read by the student AND
     // Test for each topic done and passed
