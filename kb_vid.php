@@ -30,7 +30,7 @@ $conn = OpenCon();
 
     $result = $conn->query($sql);
                                 
-    $watchedtopic=array(1,1,1,1,1,1);
+    $watched_vid_topic=array(1,1,1,1,1,1);
     $i=0;
     if ($result->num_rows > 0) {
         // output data of each row
@@ -41,10 +41,10 @@ $conn = OpenCon();
 
         
         if($row["topic_id"]==$i+1){
-            $watchedtopic[$i] = $watchedtopic[$i] & $row["watched"];
+            $watched_vid_topic[$i] = $watched_vid_topic[$i] & $row["watched"];
         }else{
             $i++;
-            $watchedtopic[$i] = $watchedtopic[$i] & $row["watched"];
+            $watched_vid_topic[$i] = $watched_vid_topic[$i] & $row["watched"];
         }
 
         }
@@ -53,9 +53,9 @@ $conn = OpenCon();
     }
 
     $all_vid_watched=1;
-    for($j=0;$j<sizeof($watchedtopic);$j++){
-        echo "Watched topic ".($j+1)." is ".$watchedtopic[$j]." <br> ";
-        $all_vid_watched=$all_vid_watched & $watchedtopic[$j];
+    for($j=0;$j<sizeof($watched_vid_topic);$j++){
+        echo "Watched topic ".($j+1)." is ".$watched_vid_topic[$j]." <br> ";
+        $all_vid_watched=$all_vid_watched & $watched_vid_topic[$j];
     }
     
     if($all_vid_watched==1)

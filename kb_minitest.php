@@ -30,7 +30,7 @@ $conn = OpenCon();
 
     $result = $conn->query($sql);
                                 
-    $watchedtopic=array(1,1,1,1,1,1);
+    $watched_minitest_topic=array(1,1,1,1,1,1);
     $i=0;
     if ($result->num_rows > 0) {
         // output data of each row
@@ -41,10 +41,10 @@ $conn = OpenCon();
 
         
         if($row["topic_id"]==$i+1){
-            $watchedtopic[$i] = $watchedtopic[$i] & $row["correct"];
+            $watched_minitest_topic[$i] = $watched_minitest_topic[$i] & $row["correct"];
         }else{
             $i++;
-            $watchedtopic[$i] = $watchedtopic[$i] & $row["correct"];
+            $watched_minitest_topic[$i] = $watched_minitest_topic[$i] & $row["correct"];
         }
 
         }
@@ -53,9 +53,9 @@ $conn = OpenCon();
     }
 
     $all_minitest_watched=1;
-    for($j=0;$j<sizeof($watchedtopic);$j++){
-        echo "Answered questions from topic ".($j+1)." is ".$watchedtopic[$j]." <br> ";
-        $all_minitest_watched=$all_minitest_watched & $watchedtopic[$j];
+    for($j=0;$j<sizeof($watched_minitest_topic);$j++){
+        echo "Answered questions from topic ".($j+1)." is ".$watched_minitest_topic[$j]." <br> ";
+        $all_minitest_watched=$all_minitest_watched & $watched_minitest_topic[$j];
     }
     
     if($all_minitest_watched==1)
