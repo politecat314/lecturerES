@@ -109,7 +109,8 @@ text-decoration: none; }
         // $times = (date("g")+6).":".date("i").":".date("s");
         // echo "<p>Today is $today $times </p>";
 
-        $currenttime = date("g")+6;
+        $currenttime = date("G")+6;
+        
         $timezone="";
         if($currenttime>=5 && $currenttime<12)
             $timezone="morning";
@@ -117,9 +118,9 @@ text-decoration: none; }
             $timezone="afternoon";
         else if($currenttime>=17 && $currenttime<21)
             $timezone="evening";
-        else if($currenttime>=21 && $currenttime<5)
+        else if($currenttime>=21 || $currenttime<5)
             $timezone="night";
-        echo "<h3>Good $timezone and welcome to FOP!</h3>"
+        echo "<h3>Good $timezone and welcome to FOP!</h3>";
         ?>
         
         <br>
