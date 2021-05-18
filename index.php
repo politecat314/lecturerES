@@ -116,10 +116,8 @@ text-decoration: none; }
             $timezone="morning";
         else if($currenttime>=12 && $currenttime<17)
             $timezone="afternoon";
-        else if($currenttime>=17 && $currenttime<21)
+        else 
             $timezone="evening";
-        else if($currenttime>=21 || $currenttime<5)
-            $timezone="night";
         echo "<h3>Good $timezone and welcome to FOP!</h3>";
         ?>
         
