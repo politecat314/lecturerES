@@ -139,7 +139,7 @@ include 'helper_functions.php';
 
                     $results_info[$topic_id]['total'] += 1;
                     echo '<div>
-                        <p><b>' . ++$i . '. ' . $question . ' </b></p>
+                        <p><b>' . ++$i . '. ' . $question . ' </b><span class="badge badge-primary pill">'.getTopicName($topic_id).'</span></p>
                         <ul class="list-group">';
 
                     $sql2 = "SELECT * FROM answers WHERE question_id = $question_id";
@@ -231,6 +231,7 @@ include 'helper_functions.php';
 
             if ($final_exam_pass) {
                 echo "<h4>Dr. Unaizah thinks you have a good understanding of FOP!<h4>";
+                echo '<button onclick="displayPass()" class="btn btn-outline-info">Why does Dr. Unaizah think I have a good understanding of FOP?</button>';
             } else {
                 echo "<h5>Dr. Unaizah recommends revising the following topics: <h5>";
                 echo "<ol>";
@@ -272,11 +273,18 @@ include 'helper_functions.php';
             }
             ?>
 
+            <div id="display-pass" style="display:none;">
+            <p>
+            <h5>Because you have finished studying all topics and scored above 60% in the final exam!</h5>
+            </p>
             
+                
+            </div>
             
 
-            <br>
+            
             <div id="table-div" style="display:none;">
+            <br>
                 <table class="table table-striped">
 
                     <h5>You scored less than 60% in questions related to those topic(s), as shown in the table below</h5>
@@ -355,7 +363,13 @@ include 'helper_functions.php';
             var x = document.getElementById("table-div");
             
             x.style.display = "block";
-            
+        }
+
+
+        function displayPass() {
+            var y = document.getElementById("display-pass");
+
+            y.style.display = "block";
         }
     </script>
 
