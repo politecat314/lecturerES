@@ -87,7 +87,7 @@ include 'helper_functions.php';
         <?php
         echo "<h3>Frequently asked questions";
         if (!empty($_GET)) {
-            echo " for <b>". getTopicName($_GET['topic_id'])."</b>";
+            echo " for ". getTopicName($_GET['topic_id']);
         }
         echo "</h3>";
         ?>

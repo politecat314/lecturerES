@@ -87,7 +87,7 @@ $topic_id = $_GET['topic_id'];
 
     <div class="container">
         <br>
-        <h3><?php echo "Which video would you like to watch under the topic <b>" . getTopicName($topic_id)."<b>"; ?></h3>
+        <h3><?php echo "Lecture videos for " . getTopicName($topic_id); ?></h3>
         <br>
 
         <?php

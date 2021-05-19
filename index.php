@@ -1,6 +1,5 @@
 <?php
 include 'connection.php';
-include 'knowledgebase.php';
 
 ?>
 
@@ -120,15 +119,10 @@ text-decoration: none; }
         else 
             $timezone="evening";
         echo "<h3>Good $timezone and welcome to FOP!</h3>";
-        $courseLearningOutcomeLookedAt = true;
-        $AllTopicPass = true;
-
-        if (!($courseLearningOutcomeLookedAt || $AllTopicPass)) {
-            echo '<h3>My name is Dr. Unaizah and I will be your FOP lecturer.<br>Want to see the learning outcome?</h3>';
-        }
-        else
-            echo '<h3>My name is Dr. Unaizah and I will be your FOP lecturer.<br>Select one of the options below and start learning!</h3>';
         ?>
+        
+        <h3>My name is Dr. Unaizah and I will be your FOP lecturer. Select one of the options below and start learning!</h3>
+        
         <br>
         <!-- <a class="btn btn-success btn-lg btn-block" href="topics.php">Begin Learning</a>
         <a class="btn btn-primary btn-lg btn-block" href="faq.php">FAQ</a>
@@ -139,7 +133,7 @@ text-decoration: none; }
             <!-- <div class="card"> -->
 
             <?php
-                
+                $courseLearningOutcomeLookedAt = true;
 
                 echo '<a class="card" href="intro.php">
                     <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1hsc0CBaqr4JOlwxX9RJ99mDTGG8bC7rd" alt="Card image cap">
@@ -148,18 +142,8 @@ text-decoration: none; }
                         <p class="card-text">Read about the synopsis and learning outcomes of this course.</p>
                     </div>
                     </a>';
-                if ($courseLearningOutcomeLookedAt && $AllTopicPass) {
-                    echo '<a class="card" href="topics.php">
-                    <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1KUwNiXYEw1F2rHezbtbRj84cVt1k9jx2" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Do revision</h5>
-                        <p class="card-text">Do revision to learn and understand more about Java programming language.</p>
-                    </div>
-                    </a>';
 
-                }
-
-                else if ($courseLearningOutcomeLookedAt) {
+                if ($courseLearningOutcomeLookedAt) {
                     echo '<a class="card" href="topics.php">
                     <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1KUwNiXYEw1F2rHezbtbRj84cVt1k9jx2" alt="Card image cap">
                     <div class="card-body">
@@ -167,20 +151,6 @@ text-decoration: none; }
                         <p class="card-text">Take your first step to learn and understand more about Java programming language.</p>
                     </div>
                     </a>';
-
-                }
-
-                
-
-                if ($AllTopicPass) {
-                    echo '<a class="card" href="test.php">
-                    <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1q0qd-uhp_WOaPPMaeg01pkUemQU-9Rru" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Take a test</h5>
-                        <p class="card-text">Test your knowledge about Java programming language with our sets of questions based on what you learnt.</p>
-                    </div>
-                    </a>';
-
                 }
             
             ?>

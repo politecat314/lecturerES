@@ -111,7 +111,7 @@ $conn = OpenCon();
 
     <div class="container">
     <br>
-    <h3>Now lets have a look at this lecture video: <?php echo $title;?></h3>
+    <h3>Lecture video: <?php echo $title;?></h3>
     <br>
 
     <object width="720" height="480" data="http://www.youtube.com/v/<?php echo $id?>" type="application/x-shockwave-flash"><param name="src" value="http://www.youtube.com/v/<?php echo $id?>" /></object>

@@ -21,7 +21,7 @@ function all_topicvid_isWatched($topic){ //check all videos in 1 topic
     
     CloseCon($conn);
     if($allvidwatched!=true){
-        //print_r(vid_isWatched($topic));
+        print_r(vid_isWatched($topic));
         return false;
     }
     else{
@@ -45,7 +45,7 @@ function vid_isWatched($topic){ // find which videos u haven't watched and retur
         array_push($unwatchedvids,$row["video_id"]);
         }
     } else {
-        //echo "0 results";
+        echo "0 results";
     }
 
     CloseCon($conn);
@@ -105,7 +105,7 @@ function minitest_isPassed($topic){ // check if FAQ topic is watched and return 
         $totalcorrect++;
         }
     } else {
-        //echo "0 results";
+        echo "0 results";
     }
 
     
@@ -121,6 +121,5 @@ function minitest_isPassed($topic){ // check if FAQ topic is watched and return 
 function isTopicDone($topic){ //check 1 topic if all task done
     return (all_topicvid_isWatched($topic) || notes_isWatched($topic)) && faq_isWatched($topic)  && minitest_isPassed($topic);
 }
-//var_dump(isTopicDone(2));
-//var_dump(all_topicvid_isWatched(2));
+var_dump(isTopicDone(6));
 ?>

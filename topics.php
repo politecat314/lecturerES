@@ -85,9 +85,7 @@ include 'connection.php';
 
     <div class="container">
     <br>
-    <!-- <h3>Select a topic below to begin learning</h3>
-    <br> -->
-    <h3>Would you like to do revision on the previous topic(s) or begin a new one?</h3>
+    <h3>Select a topic to begin learning</h3>
     <br>
     <form method="get" action="topicSelected.php">
     <div class="list-group">
