@@ -2,6 +2,7 @@
 // include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
 include 'connection.php';
 include 'helper_functions.php';
+include 'knowledgebase.php'
 ?>
 
 <html>
@@ -106,15 +107,18 @@ include 'helper_functions.php';
             echo "0 results";
         }
         CloseCon($conn);
-
-        echo "<h2 class='text-center'><b>" . $topic_name . "</b></h2><br>";
+        if(isTopicDone($topic_id)){
+            echo "<h2 class='text-center'>Congratulations!<br>You have completed<br><b>" . $topic_name . "</b></h2><br>";
+        }
+        else
+            echo "<h2 class='text-center'>Now we shall begin todays lecture.<br><b>" . $topic_name . "</b><br>Would you like to:</h2><br>";
 
         ?>
 
 
         <div class="list-group">
         <!-- <a href="#" onclick="<?php //echo 'update(' . $topic_id . ')'; ?>">Hello World</a> -->
-            <a href="<?php echo getLectureURL($topic_id); ?>" onclick="<?php echo 'update(' . $topic_id . ')'; ?>" class="list-group-item list-group-item-action">Lecture notes</a>
+            <a href="<?php echo getLectureURL($topic_id); ?>" onclick="<?php echo 'update(' . $topic_id . ')'; ?>" class="list-group-item list-group-item-action">Read lecture notes</a>
             <a href="videos.php?topic_id=<?php echo $topic_id ?>" class="list-group-item list-group-item-action">Watch lecture videos</a>
             <a href="faq.php?topic_id=<?php echo $topic_id ?>" class="list-group-item list-group-item-action">Have a look at frequently asked questions</a>
             <a href="test.php?topic_id=<?php echo $topic_id ?>" class="list-group-item list-group-item-action">Do test for this topic</a>

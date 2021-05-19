@@ -90,7 +90,7 @@ include 'helper_functions.php';
         if (empty($_GET)) {
             echo "Please answer all questions";
         } else {
-            echo "Practice questions for ". getTopicName($_GET['topic_id']);
+            echo "Practice questions for <b>". getTopicName($_GET['topic_id'])."</b>";
         }
         ?>
         </h3>
