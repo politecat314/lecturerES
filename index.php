@@ -118,10 +118,10 @@ text-decoration: none; }
             $timezone="afternoon";
         else 
             $timezone="evening";
-        echo "<h3>Good $timezone and welcome to FOP!</h3>";
+        echo "<h3>Good $timezone and welcome to FOP! My name is Dr. Unaizah and I will be your lecturer.</h3>";
         ?>
         
-        <h3>My name is Dr. Unaizah and I will be your FOP lecturer. Select one of the options below and start learning!</h3>
+        <h3>Please select one of the options below!</h3>
         
         <br>
         <!-- <a class="btn btn-success btn-lg btn-block" href="topics.php">Begin Learning</a>
@@ -136,19 +136,19 @@ text-decoration: none; }
                 $courseLearningOutcomeLookedAt = true;
 
                 echo '<a class="card" href="intro.php">
-                    <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1hsc0CBaqr4JOlwxX9RJ99mDTGG8bC7rd" alt="Card image cap">
+                    
                     <div class="card-body">
-                        <h5 class="card-title">Introduction to FOP</h5>
+                        <h5 class="card-title">Look at the course learning outcomes</h5>
                         <p class="card-text">Read about the synopsis and learning outcomes of this course.</p>
                     </div>
                     </a>';
 
                 if ($courseLearningOutcomeLookedAt) {
                     echo '<a class="card" href="topics.php">
-                    <img class="card-img-top" src="https://drive.google.com/uc?export=view&id=1KUwNiXYEw1F2rHezbtbRj84cVt1k9jx2" alt="Card image cap">
+                    
                     <div class="card-body">
-                        <h5 class="card-title">Begin learning</h5>
-                        <p class="card-text">Take your first step to learn and understand more about Java programming language.</p>
+                        <h5 class="card-title">Begin learning or revising</h5>
+                        <p class="card-text">Take your first steps to learn and understand more about Java programming language.</p>
                     </div>
                     </a>';
                 }
