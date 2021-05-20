@@ -21,7 +21,7 @@ function all_topicvid_isWatched($topic){ //check all videos in 1 topic
     
     CloseCon($conn);
     if($allvidwatched!=true){
-        print_r(vid_isWatched($topic));
+        
         return false;
     }
     else{
@@ -121,5 +121,70 @@ function minitest_isPassed($topic){ // check if FAQ topic is watched and return 
 function isTopicDone($topic){ //check 1 topic if all task done
     return (all_topicvid_isWatched($topic) || notes_isWatched($topic)) && faq_isWatched($topic)  && minitest_isPassed($topic);
 }
-var_dump(isTopicDone(6));
+
+
+function oneTopicNotStudiedYet() { // returns true if at least one topic is not finished yet
+    $not_studied = false;
+
+    $conn = OpenCon();
+            // echo "Connected Successfully";
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            
+            $sql = "SELECT topic_id, topic_name FROM topic";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $topic_id = $row["topic_id"];
+
+                    if (!isTopicDone($topic_id)) { // show only if topic is not compeleted
+                        $not_studied = true;
+                    }
+
+                    
+                }
+            } else {
+                echo "0 results";
+            }
+    CloseCon($conn);
+
+
+    return $not_studied;
+}
+
+function oneTopicStudied() { // returns true if at least one topic is studied
+    $studied = false;
+
+    $conn = OpenCon();
+            // echo "Connected Successfully";
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            
+            $sql = "SELECT topic_id, topic_name FROM topic";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $topic_id = $row["topic_id"];
+
+                    if (isTopicDone($topic_id)) { // show only if topic is not compeleted
+                        $studied = true;
+                    }
+
+                    
+                }
+            } else {
+                echo "0 results";
+            }
+    CloseCon($conn);
+
+
+    return $studied;
+}
+
 ?>

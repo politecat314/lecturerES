@@ -1,6 +1,7 @@
 <?php
 // include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
 include 'connection.php';
+include 'knowledgebase.php';
 
 ?>
 
@@ -85,11 +86,14 @@ include 'connection.php';
 
     <div class="container">
     <br>
-    <h3>Select a topic to begin learning</h3>
-    <br>
-    <form method="get" action="topicSelected.php">
-    <div class="list-group">
-        <?php
+    
+    <?php
+        if (oneTopicNotStudiedYet()) {
+            echo '<h3>Dr. Unaizah recommends studying the following topic</h3>
+    
+            <form method="get" action="topicSelected.php">
+            <div class="list-group">';
+
             $conn = OpenCon();
             // echo "Connected Successfully";
             if ($conn->connect_error) {
@@ -102,23 +106,71 @@ include 'connection.php';
             if ($result->num_rows > 0) {
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
-                // echo "id: " . $row["topic_id"]. " - Name: " . $row["topic_name"] . "<br>";
-                echo '<button name="topic" value="'. $row["topic_id"] .'" type="submit" class="list-group-item list-group-item-action">'.$row["topic_name"].'</button>';
+                    $topic_id = $row["topic_id"];
+
+                    if (!isTopicDone($topic_id)) { // show only if topic is not compeleted
+                        echo '<button name="topic" value="'. $topic_id .'" type="submit" class="list-group-item list-group-item-action">'.$row["topic_name"].'</button>';
+                        break;
+                    }
+
+                    
                 }
             } else {
                 echo "0 results";
             }
             CloseCon($conn);
-        
-        ?>
 
-        <!-- <button type="submit" name="btnSubmit" class="list-group-item list-group-item-action">Dapibus ac facilisis in</button> -->
-        <!-- <button type="button" class="list-group-item list-group-item-action">Morbi leo risus</button>
-        <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
-        <button type="button" class="list-group-item list-group-item-action" disabled>Vestibulum at eros</button> -->
-    </div>
-    </form>
+            echo '</div>
+            </form>';
+        } else {
+            //TODO code for taking the final exam
+            echo '<h3>Dr. Unaizah believes you are ready for the final exam! Click here to <a href="test.php">begin</a> the exam.</h3>';
+        }
     
+    
+    ?>
+
+
+    <hr>
+
+    <?php
+    if (oneTopicStudied()) {
+        echo '<h4>Or select a topic to start revising</h4>
+        <form method="get" action="topicSelected.php">
+        <div class="list-group">';
+
+        $conn = OpenCon();
+            // echo "Connected Successfully";
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            
+            $sql = "SELECT topic_id, topic_name FROM topic";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $topic_id = $row["topic_id"];
+
+                    if (isTopicDone($topic_id)) { // show only if topic is not compeleted
+                        echo '<button name="topic" value="'. $topic_id .'" type="submit" class="list-group-item list-group-item-action">'.$row["topic_name"].'</button>';
+                    }
+
+                    
+                }
+            } else {
+                echo "0 results";
+            }
+        CloseCon($conn);
+
+    echo '</div>
+    </form>';
+    }
+    
+    
+    ?>
+
     
     </div>
 
