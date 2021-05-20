@@ -149,13 +149,12 @@ include 'knowledgebase.php';
         <?php
             if (isTopicDone($topic_id)) {
                 echo '<h4>Select an option below to revise</h4>';
-            } else {
-                echo '<h4>Or select an option below to revise</h4>';
-            }
+            } 
 
              
             echo '<div class="list-group">';
             if (all_topicvid_isWatched($topic_id) || notes_isWatched($topic_id)) {
+                echo '<h4>Or select an option below to revise</h4>';
                 echo '<a href="'.getLectureURL($topic_id).'" class="list-group-item list-group-item-action">Lecture notes</a>';
                 echo '<a href="videos.php?topic_id='.$topic_id.'" class="list-group-item list-group-item-action">Watch lecture videos</a>';
             } 
