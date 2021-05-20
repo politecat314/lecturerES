@@ -45,7 +45,7 @@ function vid_isWatched($topic){ // find which videos u haven't watched and retur
         array_push($unwatchedvids,$row["video_id"]);
         }
     } else {
-        echo "0 results";
+        echo "0 results for vid_isWatched in knowledgebase.php";
     }
 
     CloseCon($conn);
@@ -105,7 +105,7 @@ function minitest_isPassed($topic){ // check if FAQ topic is watched and return 
         $totalcorrect++;
         }
     } else {
-        echo "0 results";
+        // echo "0 results for minitest_isPassed in knowledgebase.php";
     }
 
     
@@ -147,7 +147,7 @@ function oneTopicNotStudiedYet() { // returns true if at least one topic is not 
                     
                 }
             } else {
-                echo "0 results";
+                echo "0 results for oneTopicNotStudiedYet in knowledgebase.php";
             }
     CloseCon($conn);
 
@@ -179,7 +179,7 @@ function oneTopicStudied() { // returns true if at least one topic is studied
                     
                 }
             } else {
-                echo "0 results";
+                echo "0 results for oneTopicStudied in knowledgebase.php";
             }
     CloseCon($conn);
 

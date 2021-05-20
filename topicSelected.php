@@ -2,6 +2,8 @@
 // include $_SERVER['DOCUMENT_ROOT'].'/es/connection.php';
 include 'connection.php';
 include 'helper_functions.php';
+include 'knowledgebase.php';
+
 ?>
 
 <html>
@@ -50,7 +52,7 @@ include 'helper_functions.php';
                             if ($result->num_rows > 0) {
                                 // output data of each row
                                 while ($row = $result->fetch_assoc()) {
-                                    // echo "id: " . $row["topic_id"]. " - Name: " . $row["topic_name"] . "<br>";
+                                    $topic_id = $row['topic_id'];
                                     echo '<a class="dropdown-item" href="topicSelected.php?topic=' . $row['topic_id'] . '">' . $row['topic_name'] . '</a>';
                                 }
                             } else {
@@ -111,19 +113,76 @@ include 'helper_functions.php';
 
         ?>
 
+        
+        
+            <?php
+            // echo $topic_id;
+            // var_dump(!notes_isWatched(3));
+                if (isTopicDone($topic_id)) {
+                    echo '<h4>Dr. Unaizah says: you have finished studying this topic</h4>';
+                } else {
 
+
+                echo '<div class="list-group">';
+                if (!all_topicvid_isWatched($topic_id) && !notes_isWatched($topic_id)) {
+                    echo '<h4>Dr. Unaizah says: please study the topic from the lecture notes or watch lecture video</h4>';
+                    echo '<a href="'.getLectureURL($topic_id).'" onclick="update(' . $topic_id . ')" class="list-group-item list-group-item-action">Lecture notes</a>';
+                    echo '<a href="videos.php?topic_id='.$topic_id.'" class="list-group-item list-group-item-action">Watch lecture videos</a>';
+                } else if (!faq_isWatched($topic_id)) {
+                    echo '<h4>Dr. Unaizah says: please have a look at frequently asked questions for this topic</h4>';
+                    echo '<a href="faq.php?topic_id='.$topic_id.'" class="list-group-item list-group-item-action">Have a look at frequently asked questions</a>';
+                } else { // take test
+                    echo '<h4>Dr. Unaizah says: Take a practice test for this topic</h4>';
+                    echo '<a href="test.php?topic_id='.$topic_id.'" class="list-group-item list-group-item-action">Do test for this topic</a>';
+                }
+                echo '</div>';
+
+                }
+            ?>
+
+            
+        
+        <hr>
+        <br>
+        
+
+        <?php
+            if (isTopicDone($topic_id)) {
+                echo '<h4>Select an option below to revise</h4>';
+            } else {
+                echo '<h4>Or select an option below to revise</h4>';
+            }
+
+             
+            echo '<div class="list-group">';
+            if (all_topicvid_isWatched($topic_id) || notes_isWatched($topic_id)) {
+                echo '<a href="'.getLectureURL($topic_id).'" class="list-group-item list-group-item-action">Lecture notes</a>';
+                echo '<a href="videos.php?topic_id='.$topic_id.'" class="list-group-item list-group-item-action">Watch lecture videos</a>';
+            } 
+            if (faq_isWatched($topic_id)) {
+                echo '<a href="faq.php?topic_id='.$topic_id.'" class="list-group-item list-group-item-action">Have a look at frequently asked questions</a>';
+            } 
+            
+            if (minitest_isPassed($topic_id)) { // take test
+                echo '<a href="test.php?topic_id='.$topic_id.'" class="list-group-item list-group-item-action">Do test for this topic</a>';
+            }
+            echo '</div>';
+        
+        ?>
+
+
+
+        <!-- <h4>Or select an option below to revise</h4>
         <div class="list-group">
-        <!-- <a href="#" onclick="<?php //echo 'update(' . $topic_id . ')'; ?>">Hello World</a> -->
             <a href="<?php echo getLectureURL($topic_id); ?>" onclick="<?php echo 'update(' . $topic_id . ')'; ?>" class="list-group-item list-group-item-action">Lecture notes</a>
             <a href="videos.php?topic_id=<?php echo $topic_id ?>" class="list-group-item list-group-item-action">Watch lecture videos</a>
             <a href="faq.php?topic_id=<?php echo $topic_id ?>" class="list-group-item list-group-item-action">Have a look at frequently asked questions</a>
             <a href="test.php?topic_id=<?php echo $topic_id ?>" class="list-group-item list-group-item-action">Do test for this topic</a>
-        </div>
+        </div> -->
 
 
-        <!-- <form action="faq.php" method="get">
-            <button type="submit" name="topic_id" value="1" class="btn btn-primary btn-lg">Large button</button>
-        </form> -->
+        <br>
+        
 
     </div>
 
@@ -137,7 +196,7 @@ include 'helper_functions.php';
   crossorigin="anonymous"></script>
     <script>
         function update(topic_id) {
-            
+            // alert("updated function is run");
             $.ajax({
                     type: "POST",
                     url: "update.php",
