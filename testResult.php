@@ -230,8 +230,8 @@ include 'helper_functions.php';
             // the expert system recommendation
 
             if ($final_exam_pass) {
-                echo "<h4>Dr. Unaizah thinks you have a good understanding of FOP!<h4>";
-                echo '<button onclick="displayPass()" class="btn btn-outline-info">Why does Dr. Unaizah think I have a good understanding of FOP?</button>';
+                echo "<h4>Dr. Unaizah thinks you have a good understanding of this topic!<h4>";
+                echo '<button onclick="displayPass()" class="btn btn-outline-info">Why does Dr. Unaizah think I have a good understanding?</button>';
             } else {
                 echo "<h5>Dr. Unaizah recommends revising the following topics: <h5>";
                 echo "<ol>";
