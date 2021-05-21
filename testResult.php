@@ -275,7 +275,7 @@ include 'helper_functions.php';
 
             <div id="display-pass" style="display:none;">
             <p>
-            <h5>Because you have finished studying all topics and scored above 60% in the final exam!</h5>
+            <h5>Because you have finished studying the topics and scored above 60% in this exam!</h5>
             </p>
             
                 
