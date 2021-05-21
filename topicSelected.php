@@ -34,31 +34,31 @@ include 'knowledgebase.php';
                         <a class="nav-link" href="intro.php">Intro</a>
                     </li>
 
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="topics.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Topics
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <?php
-                            $conn = OpenCon();
-                            // echo "Connected Successfully";
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
+                            // $conn = OpenCon();
+                            // // echo "Connected Successfully";
+                            // if ($conn->connect_error) {
+                            //     die("Connection failed: " . $conn->connect_error);
+                            // }
 
-                            $sql = "SELECT topic_id, topic_name FROM topic";
-                            $result = $conn->query($sql);
+                            // $sql = "SELECT topic_id, topic_name FROM topic";
+                            // $result = $conn->query($sql);
 
-                            if ($result->num_rows > 0) {
-                                // output data of each row
-                                while ($row = $result->fetch_assoc()) {
-                                    $topic_id = $row['topic_id'];
-                                    echo '<a class="dropdown-item" href="topicSelected.php?topic=' . $row['topic_id'] . '">' . $row['topic_name'] . '</a>';
-                                }
-                            } else {
-                                echo "0 results";
-                            }
-                            CloseCon($conn);
+                            // if ($result->num_rows > 0) {
+                            //     // output data of each row
+                            //     while ($row = $result->fetch_assoc()) {
+                            //         $topic_id = $row['topic_id'];
+                            //         echo '<a class="dropdown-item" href="topicSelected.php?topic=' . $row['topic_id'] . '">' . $row['topic_name'] . '</a>';
+                            //     }
+                            // } else {
+                            //     echo "0 results";
+                            // }
+                            // CloseCon($conn);
 
                             ?>
                         </div>
@@ -71,13 +71,13 @@ include 'knowledgebase.php';
                     <li class="nav-item">
                         <a class="nav-link" href="test.php">Test</a>
                     </li>
-
+ -->
 
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
+                <!-- <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                </form> -->
             </div>
         </div>
     </nav>
@@ -154,7 +154,9 @@ include 'knowledgebase.php';
              
             echo '<div class="list-group">';
             if (all_topicvid_isWatched($topic_id) || notes_isWatched($topic_id)) {
-                echo '<h4>Or select an option below to revise</h4>';
+                if (!isTopicDone($topic_id)) {
+                    echo '<h4>Or Select an option below to revise</h4>';
+                } 
                 echo '<a href="'.getLectureURL($topic_id).'" class="list-group-item list-group-item-action">Lecture notes</a>';
                 echo '<a href="videos.php?topic_id='.$topic_id.'" class="list-group-item list-group-item-action">Watch lecture videos</a>';
             } 
