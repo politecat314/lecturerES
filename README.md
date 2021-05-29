@@ -11,4 +11,4 @@ Goal : All topics have been learned so -> Take the final test
 
 
 DEMO
-![image](/demo.jpg)
+![image](https://github.com/politecat314/lecturerES/blob/master/DEMO.JPG)
