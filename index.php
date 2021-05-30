@@ -14,10 +14,23 @@ text-decoration: none; }
 .nav a { color:black; }
     
     </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
 </head>
 
 
 <body>
+    <style>
+        body, html{
+            background-image:linear-gradient(to bottom ,#38e4ae,#B7C0EE);
+            background-attachment:fixed;
+            height:100%;
+            font-family: 'Quicksand', sans-serif;
+            color: #330C2F;
+            background-attachment:fixed;
+        }
+
+    </style>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">

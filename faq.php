@@ -10,12 +10,21 @@ include 'helper_functions.php';
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
 </head>
 
 
 <body>
+    <style>
+        body, html{
+            background-image:linear-gradient(to bottom ,#38e4ae,#B7C0EE);
+            height:100%;
+            font-family: 'Quicksand', sans-serif;
+            background-attachment:fixed;
+        }
 
+    </style>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="index.php">Fun With Java ES</a>
