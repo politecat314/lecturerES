@@ -241,7 +241,7 @@ include 'helper_functions.php';
 
             if ($final_exam_pass) {
                 echo "<h4>Dr. Unaizah thinks you have a good understanding of this topic!<h4>";
-                echo '<button onclick="displayPass()" class="btn btn-outline-info">Why does Dr. Unaizah think I have a good understanding?</button>';
+                echo '<button onclick="displayPass()" class="btn btn-info">Why does Dr. Unaizah think I have a good understanding?</button>';
             } else {
                 echo "<h5>Dr. Unaizah recommends revising the following topics: <h5>";
                 echo "<ol>";
@@ -277,8 +277,8 @@ include 'helper_functions.php';
                 CloseCon($conn);
                 echo "</ol>";
 
-                echo '<a class="btn btn-outline-primary" href="topics.php">Start revision</a>
-                <button onclick="displayTable()" class="btn btn-outline-info">Why does Dr. Unaizah recommend revising these topics?</button>
+                echo '<a class="btn btn-primary" href="topics.php">Start revision</a>
+                <button onclick="displayTable()" class="btn btn-info">Why does Dr. Unaizah recommend revising these topics?</button>
                 <br>';
             }
             ?>
@@ -295,7 +295,7 @@ include 'helper_functions.php';
             
             <div id="table-div" style="display:none;">
             <br>
-                <table class="table table-striped">
+                <table class="table table-striped" style="background-color:white">
 
                     <h5>You scored less than 60% in questions related to those topic(s), as shown in the table below</h5>
                     <thead>
