@@ -231,6 +231,14 @@ include 'helper_functions.php';
             if ($final_exam_pass) {
                 $heading_badge_color = 'badge-success';
                 $pass = 'passed';
+
+                if ($total_questions === countRows('questions')) { // current exam is a final exam
+                    changeFinalExam(1);
+                }
+            } else {
+                if ($total_questions === countRows('questions')) { // current exam is a final exam
+                    changeFinalExam(0);
+                }
             }
             echo '<h2>You scored <span class="badge ' . $heading_badge_color . '">' . $total_correct . '/' . $total_questions . '</span></h2>';
             echo '<h4>You ' . $pass . ' this test with ' . number_format($percentage * 100, 1) . '%</h4>';

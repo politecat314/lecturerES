@@ -240,7 +240,7 @@ function countRows($tablename) {
         
         while ($row = $result->fetch_assoc()) {
             // print_r($row);
-            $length = $row["COUNT('1')"];
+            $length = (int) $row["COUNT('1')"];
         }
     } else {
         echo "0 results";
