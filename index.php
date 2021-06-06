@@ -1,6 +1,6 @@
 <?php
 include 'connection.php';
-
+include 'knowledgebase.php';
 ?>
 
 <html>
@@ -185,6 +185,24 @@ text-decoration: none; }
                 </a> -->
             
         </div>
+
+<br>
+
+<?php // only show the success page if all topics are complete
+    if (isAlltopicDone()) {
+        echo '<div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Well done!</h4>
+        <p>Aww yeah, you have successfully completed the FOP course! You have a good understanding of all the topics of FOP. My confidence level for this decision is 75%</p>
+        <hr>
+        <p class="mb-0">You can still look at the course learning outcomes, learn or revise topics or take final exam!</p>
+      </div>
+      <br>';
+    }
+?>
+
+
+
+
     </div>
 
 

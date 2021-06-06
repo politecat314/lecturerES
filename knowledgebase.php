@@ -122,6 +122,32 @@ function isTopicDone($topic){ //check 1 topic if all task done
     return (all_topicvid_isWatched($topic) || notes_isWatched($topic)) && faq_isWatched($topic)  && minitest_isPassed($topic);
 }
 
+function isAlltopicDone() {
+    $conn = OpenCon();
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    $sql = "SELECT * FROM topic";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+
+        while ($row = $result->fetch_assoc()) {
+            if (!isTopicDone($row['topic_id'])) {
+                return false;
+            }
+        }
+    } else {
+        echo "0 results for vid_isWatched in knowledgebase.php";
+    }
+
+    CloseCon($conn);
+
+
+    return true;
+}
+
 
 function oneTopicNotStudiedYet() { // returns true if at least one topic is not finished yet
     $not_studied = false;
