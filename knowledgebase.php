@@ -213,4 +213,28 @@ function oneTopicStudied() { // returns true if at least one topic is studied
     return $studied;
 }
 
+function finalExamTaken() {
+    $final_taken = false;
+    $conn = OpenCon();
+        // echo "Connected Successfully";
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        
+        $sql = "SELECT * FROM exam";
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+                $final_taken = (boolean) $row['taken'];
+            }
+        } else {
+            echo "";
+        }
+    CloseCon($conn);
+
+    return $final_taken;
+}
+
 ?>

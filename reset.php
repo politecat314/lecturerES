@@ -6,6 +6,10 @@ if (!empty($_POST)) {
     echo "contents of POST: ";
     print_r($_POST);
 
+    // clear exam
+    if (array_key_exists("exam", $_POST)) {
+        changeFinalExam($_POST['exam']);
+    }
 
     // if all clear
     if (array_key_exists("all", $_POST)) {
@@ -13,7 +17,7 @@ if (!empty($_POST)) {
         if ($_POST["all"] === "1") { // reset everything
             $command = 1;
         } 
-            
+            changeFinalExam($command);
             $conn = OpenCon();
 
             if ($conn->connect_error) {
@@ -50,6 +54,7 @@ if (!empty($_POST)) {
         while ($row = $result->fetch_assoc()) {
 
             if (array_key_exists($row['topic_id'], $_POST)) {
+                
                 $command_str = $_POST[$row['topic_id']];
                 $topic_id = $row['topic_id'];
                 $command = 0;
@@ -67,9 +72,11 @@ if (!empty($_POST)) {
                 } else { // delete all
                     changeTopic($topic_id, $command);
                 }
+
+                break;
             }
 
-            break;
+            
         }
     } else {
         echo "0 results for vid_isWatched in knowledgebase.php";
@@ -128,6 +135,11 @@ if (!empty($_POST)) {
                         <button type="submit" name="all" value="0" class="btn btn-danger">Set all to 0</button>
                     </form>
                 </div>
+                <div class="col">
+                    <form action="" method="post">
+                        <button type="submit" name="exam" value="0" class="btn btn-info">Final exam to 0</button>
+                    </form>
+                </div>
             </div>
 
             <?php
@@ -182,6 +194,11 @@ if (!empty($_POST)) {
                 <div class="col">
                     <form action="" method="post">
                         <button type="submit" name="all" value="1" class="btn btn-danger">Set all to 1</button>
+                    </form>
+                </div>
+                <div class="col">
+                    <form action="" method="post">
+                        <button type="submit" name="exam" value="1" class="btn btn-info">Final exam to 1</button>
                     </form>
                 </div>
             </div>
