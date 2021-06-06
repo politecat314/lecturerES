@@ -22,7 +22,8 @@ text-decoration: none; }
 <body>
     <style>
         body, html{
-            background-image:linear-gradient(to bottom ,#38e4ae,#B7C0EE);
+            /* background-image:linear-gradient(to bottom ,#38e4ae,#B7C0EE); */
+            background-color: #f2f2f2;
             background-attachment:fixed;
             height:100%;
             font-family: 'Quicksand', sans-serif;

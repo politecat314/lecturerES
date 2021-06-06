@@ -17,7 +17,8 @@ include 'helper_functions.php';
 <body>
     <style>
         body, html{
-            background-image:linear-gradient(to bottom ,#38e4ae,#B7C0EE);
+            /* background-image:linear-gradient(to bottom ,#38e4ae,#B7C0EE); */
+            background-color: #f2f2f2;
             height:100%;
             font-family: 'Quicksand', sans-serif;
             background-attachment:fixed;
@@ -104,7 +105,7 @@ include 'helper_functions.php';
         }
         ?>
         </h3>
-
+        <h5>Please select how confident you are for each answer. 1=very unsure. 4=very confident</h5>
         <br>
 
         <form action="testResult.php" method="get">
@@ -152,7 +153,25 @@ include 'helper_functions.php';
                     echo "0 results";
                 }
 
-
+                echo '<div class="form-check form-check-inline">Confidence level: </div>
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">1</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                <label class="form-check-label" for="inlineRadio2">2</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                <label class="form-check-label" for="inlineRadio3">3</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
+                <label class="form-check-label" for="inlineRadio4">4</label>
+              </div>
+              
+              <br><br>';
             }
         } else {
             echo "0 results";
