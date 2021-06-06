@@ -121,3 +121,84 @@ function updateQuestionCorrectness($question_id, $value) {
 
     CloseCon($conn);
 }
+
+
+function changeTopic($topic_id, $value) {
+    changeFaq($topic_id, $value);
+    changeLectNotes($topic_id, $value);
+    changeQuestions($topic_id, $value);
+    changeVideos($topic_id, $value);
+}
+
+
+function changeFaq($topic_id, $value) { // set value to 0 or 1
+    $conn = OpenCon();
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "UPDATE faq SET watched=$value WHERE topic_id=$topic_id";
+
+    if ($conn->query($sql) === TRUE) {
+        // echo "Record updated successfully";
+      } else {
+        echo "Error updating record: " . $conn->error;
+      }
+
+    CloseCon($conn);
+}
+
+function changeLectNotes($topic_id, $value) {
+    $conn = OpenCon();
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "UPDATE lecture_notes SET watched=$value WHERE topic_id=$topic_id";
+
+    if ($conn->query($sql) === TRUE) {
+        // echo "Record updated successfully";
+      } else {
+        echo "Error updating record: " . $conn->error;
+      }
+
+    CloseCon($conn);
+}
+
+function changeQuestions($topic_id, $value) {
+    $conn = OpenCon();
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "UPDATE questions SET correct=$value WHERE topic_id=$topic_id";
+
+    if ($conn->query($sql) === TRUE) {
+        // echo "Record updated successfully";
+      } else {
+        echo "Error updating record: " . $conn->error;
+      }
+
+    CloseCon($conn);
+}
+
+function changeVideos($topic_id, $value) {
+    $conn = OpenCon();
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "UPDATE videos SET watched=$value WHERE topic_id=$topic_id";
+
+    if ($conn->query($sql) === TRUE) {
+        // echo "Record updated successfully";
+      } else {
+        echo "Error updating record: " . $conn->error;
+      }
+
+    CloseCon($conn);
+}
