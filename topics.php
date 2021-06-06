@@ -131,9 +131,10 @@ include 'knowledgebase.php';
 
             echo '</div>
             </form>';
-        } else {
-            //TODO code for taking the final exam
+        } else if (!finalExamTaken()){
             echo '<h3>Dr. Unaizah believes you are ready for the final exam! Click here to <a href="test.php">begin</a> the exam.</h3>';
+        } else {
+            echo '<h3>Attempt the final exam once more if you want! Click here to <a href="test.php">begin</a> the exam.</h3>';
         }
     
     

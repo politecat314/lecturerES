@@ -189,7 +189,7 @@ text-decoration: none; }
 <br>
 
 <?php // only show the success page if all topics are complete
-    if (isAlltopicDone()) {
+    if (isAlltopicDone() and finalExamTaken()) {
         echo '<div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Well done!</h4>
         <p>Aww yeah, you have successfully completed the FOP course! You have a good understanding of all the topics of FOP. My confidence level for this decision is 75%</p>

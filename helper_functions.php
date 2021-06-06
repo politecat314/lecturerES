@@ -221,3 +221,32 @@ function changeFinalExam($value) {
 
     CloseCon($conn);
 }
+
+
+function countRows($tablename) {
+    $length = 0;
+    
+    $conn = OpenCon();
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "SELECT COUNT('1') FROM $tablename";
+
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        
+        while ($row = $result->fetch_assoc()) {
+            // print_r($row);
+            $length = $row["COUNT('1')"];
+        }
+    } else {
+        echo "0 results";
+    }
+
+    CloseCon($conn);
+
+    return $length;
+}
