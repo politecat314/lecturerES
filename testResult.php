@@ -119,7 +119,7 @@ include 'helper_functions.php';
 
             <?php
             $results_info = array(); // question_id => (question_string, correct_answers, total_answers)
-
+            $confidence_level = array();
 
             $conn = OpenCon();
             // echo "Connected Successfully";
@@ -138,10 +138,11 @@ include 'helper_functions.php';
                     $question_id = $row['question_id'];
                     $question = $row['question'];
                     $topic_id = $row['topic_id'];
-
+                    
                     if (!array_key_exists($question_id, $_GET)) {
                         continue;
                     }
+                    $confidence_level[$question_id] = (4 - (((int) $_GET[$question_id."c"]) - 1) )/4; // confidence level for wrong answer
 
                     if (!array_key_exists($topic_id, $results_info)) {
                         $results_info[$topic_id] = array('correct' => 0, 'total' => 0);
@@ -174,6 +175,7 @@ include 'helper_functions.php';
                                     $ans_highlight = 'list-group-item-success';
                                     $results_info[$topic_id]['correct'] += 1;
                                     updateQuestionCorrectness($question_id, 1);
+                                    $confidence_level[$question_id] = ((int) $_GET[$question_id."c"])/4; // confidence level for correct answer
                                 }
                             } else if ($row2['answers_id'] === $answer_submitted) { // is this the wrong answer which was submitted?
                                 $ans_highlight = 'list-group-item-danger';
@@ -315,7 +317,7 @@ include 'helper_functions.php';
                     </thead>
                     <tbody>
                         <?php
-                        // print_r($results_info);
+                        
 
                         $conn = OpenCon();
                         // echo "Connected Successfully";
@@ -349,7 +351,6 @@ include 'helper_functions.php';
                             echo "0 results";
                         }
                         CloseCon($conn);
-
                         ?>
 
                     </tbody>
@@ -368,7 +369,7 @@ include 'helper_functions.php';
 
     </div>
 
-
+    <?php print_r($confidence_level);?>
     </div>
 
 
