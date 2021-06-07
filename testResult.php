@@ -379,7 +379,28 @@ include 'helper_functions.php';
     </div>
 
     </div>
+    
+    <?php
+    // updating confidence stuff to database
+    $confidence_lvl = number_format((array_sum($confidence_level)/count($confidence_level))*100, 2);
 
+    $conn = OpenCon();
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "UPDATE uncertainty SET percentage=$confidence_lvl WHERE uncertainty_id=0";
+
+    if ($conn->query($sql) === TRUE) {
+        // echo "Record updated successfully";
+      } else {
+        echo "Error updating record: " . $conn->error;
+      }
+
+    CloseCon($conn);
+    
+    ?>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
