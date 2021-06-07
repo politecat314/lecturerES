@@ -37,13 +37,14 @@ include 'helper_functions.php';
 
 <body>
     <style>
-        body, html{
-            background-image:linear-gradient(to bottom ,#38e4ae,#B7C0EE);
-            height:100%;
+        body,
+        html {
+            /* background-image: linear-gradient(to bottom, #38e4ae, #B7C0EE); */
+            background-color: #f2f2f2;
+            height: 100%;
             font-family: 'Quicksand', sans-serif;
-            background-attachment:fixed;
+            background-attachment: fixed;
         }
-
     </style>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
@@ -115,7 +116,7 @@ include 'helper_functions.php';
 
 
 
-        <div id="blockA">
+        <div id="blockA" style="display:none;">
 
             <?php
             $results_info = array(); // question_id => (question_string, correct_answers, total_answers)
@@ -138,11 +139,11 @@ include 'helper_functions.php';
                     $question_id = $row['question_id'];
                     $question = $row['question'];
                     $topic_id = $row['topic_id'];
-                    
+
                     if (!array_key_exists($question_id, $_GET)) {
                         continue;
                     }
-                    $confidence_level[$question_id] = (4 - (((int) $_GET[$question_id."c"]) - 1) )/4; // confidence level for wrong answer
+                    $confidence_level[$question_id] = (4 - (((int) $_GET[$question_id . "c"]) - 1)) / 4; // confidence level for wrong answer
 
                     if (!array_key_exists($topic_id, $results_info)) {
                         $results_info[$topic_id] = array('correct' => 0, 'total' => 0);
@@ -150,7 +151,7 @@ include 'helper_functions.php';
 
                     $results_info[$topic_id]['total'] += 1;
                     echo '<div>
-                        <p><b>' . ++$i . '. ' . $question . ' </b><span class="badge badge-primary pill">'.getTopicName($topic_id).'</span></p>
+                        <p><b>' . ++$i . '. ' . $question . ' </b><span class="badge badge-primary pill">' . getTopicName($topic_id) . '</span></p>
                         <ul class="list-group">';
 
                     $sql2 = "SELECT * FROM answers WHERE question_id = $question_id";
@@ -175,7 +176,7 @@ include 'helper_functions.php';
                                     $ans_highlight = 'list-group-item-success';
                                     $results_info[$topic_id]['correct'] += 1;
                                     updateQuestionCorrectness($question_id, 1);
-                                    $confidence_level[$question_id] = ((int) $_GET[$question_id."c"])/4; // confidence level for correct answer
+                                    $confidence_level[$question_id] = ((int) $_GET[$question_id . "c"]) / 4; // confidence level for correct answer
                                 }
                             } else if ($row2['answers_id'] === $answer_submitted) { // is this the wrong answer which was submitted?
                                 $ans_highlight = 'list-group-item-danger';
@@ -250,10 +251,12 @@ include 'helper_functions.php';
             // the expert system recommendation
 
             if ($final_exam_pass) {
-                echo "<h4>Dr. Unaizah thinks you have a good understanding of this topic!<h4>";
+                echo "<h4>Dr. Unaizah concludes you have a good understanding of this topic!<h4>";
                 echo '<button onclick="displayPass()" class="btn btn-info">Why does Dr. Unaizah think I have a good understanding?</button>';
+                echo '<button onclick="displayConfidence()" class="btn btn-info">Confidence level for conclusion</button>';
+                echo '<button onclick="displayAnswers()" class="btn btn-warning">Show answers</button>';
             } else {
-                echo "<h5>Dr. Unaizah recommends revising the following topics: <h5>";
+                echo "<h5>Dr. Unaizah concludes you do not have a good understanding yet. She recommends revising the following topics: <h5>";
                 echo "<ol>";
                 $conn = OpenCon();
                 // echo "Connected Successfully";
@@ -289,22 +292,28 @@ include 'helper_functions.php';
 
                 echo '<a class="btn btn-primary" href="topics.php">Start revision</a>
                 <button onclick="displayTable()" class="btn btn-info">Why does Dr. Unaizah recommend revising these topics?</button>
+                <button onclick="displayConfidence()" class="btn btn-info">Confidence level for conlusion</button>
+                <button onclick="displayAnswers()" class="btn btn-warning">Show answers</button>
                 <br>';
             }
             ?>
 
             <div id="display-pass" style="display:none;">
-            <p>
-            <h5>Because you have finished studying the topics and scored above 60% in this exam!</h5>
-            </p>
-            
-                
+                <p>
+                <h5>Because you have finished studying the topics and scored above 60% in this exam!</h5>
+                </p>
             </div>
-            
 
-            
+            <div id="display-confidence" style="display: none;">
+                <p>
+                <h5>The system is <?php echo number_format((array_sum($confidence_level)/count($confidence_level))*100, 2);?>% confident of it's conclusion</h5>
+                </p>
+            </div>
+
+
+
             <div id="table-div" style="display:none;">
-            <br>
+                <br>
                 <table class="table table-striped" style="background-color:white">
 
                     <h5>You scored less than 60% in questions related to those topic(s), as shown in the table below</h5>
@@ -317,7 +326,7 @@ include 'helper_functions.php';
                     </thead>
                     <tbody>
                         <?php
-                        
+
 
                         $conn = OpenCon();
                         // echo "Connected Successfully";
@@ -369,7 +378,6 @@ include 'helper_functions.php';
 
     </div>
 
-    <?php print_r($confidence_level);?>
     </div>
 
 
@@ -378,17 +386,35 @@ include 'helper_functions.php';
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
         function displayTable() {
-            // console.log("button pressed")
+            console.log("button pressed");
             var x = document.getElementById("table-div");
-            
+
             x.style.display = "block";
         }
 
 
         function displayPass() {
+            console.log("button pressed");
             var y = document.getElementById("display-pass");
 
             y.style.display = "block";
+        }
+
+
+        function displayConfidence() {
+            console.log('button pressed');
+            var z = document.getElementById("display-confidence");
+            
+            z.style.display = "block";
+        }
+
+
+        function displayAnswers() {
+            console.log("display answers pressed");
+
+            var v = document.getElementById("blockA");
+
+            v.style.display = "block";
         }
     </script>
 

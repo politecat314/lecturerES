@@ -19,7 +19,8 @@ include 'knowledgebase.php';
 <body>
     <style>
         body, html{
-            background-image:linear-gradient(to bottom ,#38e4ae,#B7C0EE);
+            background-color: #f2f2f2;
+            /* background-image:linear-gradient(to bottom ,#38e4ae,#B7C0EE); */
             height:100%;
             font-family: 'Quicksand', sans-serif;
             background-attachment:fixed;
