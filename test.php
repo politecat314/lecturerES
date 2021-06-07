@@ -155,20 +155,20 @@ include 'helper_functions.php';
 
                 echo '<div class="form-check form-check-inline">Confidence level: </div>
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                <label class="form-check-label" for="inlineRadio1">1</label>
+                <input class="form-check-input" type="radio" name="'.$question_id."c".'" id="'.$question_id."c1".'" value="1">
+                <label class="form-check-label" for="'.$question_id."c1".'">1</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                <label class="form-check-label" for="inlineRadio2">2</label>
+                <input class="form-check-input" type="radio" name="'.$question_id."c".'" id="'.$question_id."c2".'" value="2">
+                <label class="form-check-label" for="'.$question_id."c2".'">2</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                <label class="form-check-label" for="inlineRadio3">3</label>
+                <input class="form-check-input" type="radio" name="'.$question_id."c".'" id="'.$question_id."c3".'" value="3">
+                <label class="form-check-label" for="'.$question_id."c3".'">3</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
-                <label class="form-check-label" for="inlineRadio4">4</label>
+                <input class="form-check-input" type="radio" name="'.$question_id."c".'" id="'.$question_id."c4".'" value="4">
+                <label class="form-check-label" for="'.$question_id."c4".'">4</label>
               </div>
               
               <br><br>';
