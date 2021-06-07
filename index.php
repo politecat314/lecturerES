@@ -190,10 +190,32 @@ text-decoration: none; }
 <br>
 
 <?php // only show the success page if all topics are complete
+    $percentage = 0;
     if (isAlltopicDone() and finalExamTaken()) {
+        // retrieve confidence value from dbase
+        $conn = OpenCon();
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT * FROM uncertainty WHERE uncertainty_id=0";
+
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            
+            while ($row = $result->fetch_assoc()) {
+                 $percentage = $row['percentage'];
+            }
+        } else {
+            echo "0 results";
+        }
+        CloseCon($conn);
+
         echo '<div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Well done!</h4>
-        <p>Aww yeah, you have successfully completed the FOP course! You have a good understanding of all the topics of FOP. My confidence level for this decision is 75%</p>
+        <p>Aww yeah, you have successfully completed the FOP course! You have a good understanding of all the topics of FOP. My confidence level for this decision is '.$percentage.'%</p>
         <hr>
         <p class="mb-0">You can still look at the course learning outcomes, learn or revise topics or take final exam!</p>
       </div>
