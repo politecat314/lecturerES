@@ -251,12 +251,13 @@ include 'helper_functions.php';
             // the expert system recommendation
 
             if ($final_exam_pass) {
-                echo "<h4>Dr. Unaizah concludes you have a good understanding of this topic!<h4>";
+                echo "<h5>Dr. Unaizah concludes you have a good understanding of this topic!</h5>";
                 echo '<button onclick="displayPass()" class="btn btn-info">Why does Dr. Unaizah think I have a good understanding?</button>';
                 echo '<button onclick="displayConfidence()" class="btn btn-info">Confidence level for conclusion</button>';
                 echo '<button onclick="displayAnswers()" class="btn btn-warning">Show answers</button>';
+                echo '<br>';
             } else {
-                echo "<h5>Dr. Unaizah concludes you do not have a good understanding yet. She recommends revising the following topics: <h5>";
+                echo "<h5>Dr. Unaizah concludes you do not have a good understanding yet. She recommends revising the following topics: </h5>";
                 echo "<ol>";
                 $conn = OpenCon();
                 // echo "Connected Successfully";
